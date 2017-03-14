@@ -5,11 +5,16 @@
  */
 package com.hotelProject.controllers;
 
+import dao.BookingManager;
+import dao.RoomManager;
+import datasource.Datasource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import wrappers.Room;
 
 /**
@@ -19,33 +24,87 @@ import wrappers.Room;
 //just for testing purpose
 @Controller
 public class Admin {
-    @RequestMapping(value={"admin"})
-    public ModelAndView AdminController(ModelAndView mv){
-        mv = new ModelAndView("admin");
+
+    @RequestMapping(value = {"admin"})
+    public ModelAndView AdminController(ModelAndView mv) {
+        mv = new ModelAndView(new RedirectView("admin"));
+        try {
+            //get all rooms and their specifications
+            RoomManager rooms = new RoomManager(Datasource.getDatasource());
+
+            //add rooms to ModelAndView 
+            mv.addObject("rooms", rooms.list());
+        } catch (ClassNotFoundException e) {
+            mv.addObject("rooms", null);
+        }
+
+        try {
+            //get all bookings
+            BookingManager bookings = new BookingManager(Datasource.getDatasource());
+
+            //add bookings to ModelAndView
+            mv.addObject("bookings", bookings.list());
+        } catch (ClassNotFoundException e) {
+            mv.addObject("bookings", null);
+        }
+
+        //return ModelAndView
         return mv;
     }
-    public ModelAndView addRooms(@ModelAttribute("room") Room room)
-    {
+
+    @RequestMapping(value = {"addRoom", "editRoom"}, method = {RequestMethod.GET})
+    public ModelAndView addRooms(@ModelAttribute("room") Room room) {
         // add room to database please make sure the data is correct and redirect accordingly
-        return null;
+        ModelAndView mv = new ModelAndView(new RedirectView("admin"));
+
+        try {
+            RoomManager rooms = new RoomManager(Datasource.getDatasource());
+            if (rooms.saveOrUpdate(room)) {
+
+                mv.addObject("status", "SUCCESS");
+                mv.addObject("reason", "Room is saved successfully");
+            } else {
+
+                mv.addObject("status", "FAILED");
+                mv.addObject("reason", "Room could not be saved. Try again.");
+            }
+
+        } catch (ClassNotFoundException e) {
+            mv.addObject("status", "FAILED");
+            mv.addObject("reason", "Database went wrong. Please try agian");
+        }
+        return mv;
     }
-    
-    public ModelAndView editRooms(@ModelAttribute("room") Room room)
-    {
+
+    @RequestMapping(value = {"deleteRoom"}, method = {RequestMethod.GET})
+    public ModelAndView deleteRooms(@RequestParam("roomNumber") int id) {
         // add room to database please make sure the data is correct and redirect accordingly
-        return null;
+        ModelAndView mv = new ModelAndView(new RedirectView("admin"));
+        try {
+            RoomManager rooms = new RoomManager(Datasource.getDatasource());
+            if (rooms.delete(id)) {
+
+                mv.addObject("status", "SUCCESS");
+                mv.addObject("reason", "Room is deleted successfully");
+            } else {
+
+                mv.addObject("status", "FAILED");
+                mv.addObject("reason", "Room could not be delted. Try again.");
+            }
+
+        } catch (ClassNotFoundException e) {
+            mv.addObject("status", "FAILED");
+            mv.addObject("reason", "Database went wrong. Please try agian");
+        }
+
+        return mv;
     }
-   
-    public ModelAndView deleteRooms(@RequestParam("roomNumber") int id)
-    {
-        // add room to database please make sure the data is correct and redirect accordingly
-        return null;
-    }
-    
-    public ModelAndView getReservation(@ModelAttribute("newWrapper") String data)
-    {
+
+//    @RequestMapping(value = {"addRoom", "editRoom"}, method = {RequestMethod.GET})
+    public ModelAndView getReservation(@ModelAttribute("newWrapper") String data) {
         // get the information and store it in the wrapper class and finally give the right result based on the search!
+
         return null;
     }
-    
+
 }

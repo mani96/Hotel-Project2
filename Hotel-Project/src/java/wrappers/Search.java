@@ -10,7 +10,19 @@ package wrappers;
  * @author Anirudh
  */
 public enum Search {
+
+    /**
+     * BOOKING_ID
+     */
     BOOKING_ID,
+
+    /**
+     * USERNAME
+     */
     USERNAME,
+
+    /**
+     * START_DATE
+     */
     START_DATE
 }

@@ -25,6 +25,12 @@ import wrappers.User;
  */
 @Controller
 public class index {
+
+    /**
+     *
+     * @param mv
+     * @return
+     */
     @RequestMapping(value = {"home","index"})
     public ModelAndView HomePage(ModelAndView mv){
         mv = new ModelAndView("index");
@@ -33,6 +39,12 @@ public class index {
         return mv;
     }
     
+    /**
+     *
+     * @param auth
+     * @param request
+     * @return
+     */
     @RequestMapping(value = {"authenticate","login"}, method = {RequestMethod.POST})
     public ModelAndView loginUser(@ModelAttribute("Authenticate") Authenticate auth,HttpServletRequest request)
     {

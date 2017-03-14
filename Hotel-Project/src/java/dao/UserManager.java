@@ -34,6 +34,10 @@ public class UserManager {
     private final String SELECT_ADMIN;
     private final String SELECT_USERS;
 
+    /**
+     * Constructor for the object
+     * @param dataSource, DataSource required! You many get that object using the static method available in DataSource class
+     */
     public UserManager(DataSource dataSource) {
         TEMP = new JdbcTemplate(dataSource);
         
@@ -49,6 +53,10 @@ public class UserManager {
         AES = new Security();
     }
 
+    /**
+     * This returns you the list of all the rooms
+     * @return A list of users.
+     */
     public List<User> list() {
         List<User> list = TEMP.query(this.SELECT_ALL, new RowMapper<User>() {
             @Override
@@ -66,6 +74,12 @@ public class UserManager {
         return list;
     }
 
+    /**
+     * This method will be used to authenticate user using the authenticated object
+     * DO NOT ENCRYPT THE PASSWORD IN THE AUTHENTICATE OBJECT WHEN PROVIDED
+     * @param auth, Authenticate object
+     * @return boolean as to user is authenticated or not
+     */
     public boolean authenticate(Authenticate auth) {
         if (auth.username.equalsIgnoreCase("")
                 || auth.username.equalsIgnoreCase(null)
@@ -94,6 +108,11 @@ public class UserManager {
         }
     }
     
+    /**
+     * This returns you the list of all the user based on parameter.
+     * @param isAdmin, True if you need all admin user, False if you need all customer user.
+     * @return A list of Users
+     */
     public List<User> listUser(boolean isAdmin) {
         if (isAdmin) {
             List<User> list = TEMP.query(this.SELECT_ADMIN, new RowMapper<User>() {
@@ -128,6 +147,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * This method allows you to delete a user entry record from the database
+     * @param username, Username for which the data removal is required
+     * @return action success boolean
+     */
     public Boolean delete(String username) {
         try {
             return TEMP.update(this.DELETE, username.toUpperCase()) == 1;
@@ -136,6 +160,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * This gets you the User object from the database using the username.
+     * @param username, Username to look for in database
+     * @return user object if it exists or null
+     */
     public User get(String username) {
         String query = this.GET + "\'" + username.toUpperCase() + "\'";
         return TEMP.query(query, (ResultSet rs) -> {
@@ -153,6 +182,12 @@ public class UserManager {
         });
     }
 
+    /**
+     * Use this authentication only if you don't have authentication object but want to see if the user is authenticated.
+     * @param username, Username to validate
+     * @param password, Password to validate
+     * @return authentication result boolean
+     */
     public boolean authenticate(String username, String password) {
         if (username.equalsIgnoreCase("")
                 || username.equalsIgnoreCase(null)
@@ -181,6 +216,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * This method accepts a User object that it then uses to insert into database
+     * @param object,An object of User Class! Providing any other object will always return false
+     * @return action success boolean
+     */
     public boolean add(Object object) {
         if (object instanceof User) {
             User i = (User) object;
@@ -200,6 +240,12 @@ public class UserManager {
         }
     }
 
+    /**
+     * This method updates everything from the object provided except the password!
+     * To update password use updatePassword(String username,String oldPassword,String newPassword) or updatePassword(String Username,String newPassword) methods.
+     * @param object,An object of User Class! Providing any other object will always return false
+     * @return action success boolean
+     */
     public boolean update(Object object) {
         if (object instanceof User) {
             User i = (User) object;
@@ -214,6 +260,16 @@ public class UserManager {
         }
     }
 
+    /**
+     * This method is made to update the password for a user based on his or her username
+     * Old password encrypted is required in this method, 
+     * if you don't have it please use the updatePassword(String Username,String newPassword) method.
+     * 
+     * @param username, Username for the user to change the password for.
+     * @param oldPassword, Their old encrypted password.
+     * @param newPassword, Their new plain(non-encrypted) password.
+     * @return action success boolean
+     */
     public boolean updatePassword(String username, String oldPassword, String newPassword) {
         User oldUser = this.get(username.toUpperCase());
         if (oldUser == null) {
@@ -232,6 +288,13 @@ public class UserManager {
         }
     }
 
+    /**
+     * This method is made to update the password for a user based on his or her username
+     * This method only requires the username and new password for update.
+     * @param username, Username for the user to change the password for.
+     * @param newPassword, Their new plain(non-encrypted) password.
+     * @return action success boolean
+     */
     public boolean updatePassword(String username, String newPassword) {
         User oldUser = this.get(username.toUpperCase());
         if (oldUser == null) {
@@ -246,6 +309,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * This method checks for the presence of that user in the users list.
+     * @param username, Username to search for.
+     * @return boolean to indicate presence.
+     */
     public Boolean userExists(String username) {
         return this.get(username) != null;
     }

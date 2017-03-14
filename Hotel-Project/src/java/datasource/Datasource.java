@@ -10,9 +10,19 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
  * @author Anirudh
  */
 public class Datasource {
+
+    /**
+     * Simple Driver DataSource connection variable
+     */
     protected static SimpleDriverDataSource ds;
     private static int count = 0;
     
+    /**
+     * This method provides you the DataSource object for all the connections<br>
+     * It will be required by almost all dao objects.
+     * @return DataSource object
+     * @throws ClassNotFoundException
+     */
     public static DataSource getDatasource() throws ClassNotFoundException
     {
         if(count == 0)

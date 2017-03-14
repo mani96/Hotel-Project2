@@ -17,6 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class User {
     
+    /**
+     *
+     * @return
+     */
     @RequestMapping(value = {"user"})
     public ModelAndView loadPage()
     {
@@ -25,6 +29,10 @@ public class User {
         return null;
     }
     
+    /**
+     *
+     * @return
+     */
     public ModelAndView bookRoom()
     {
         return null;

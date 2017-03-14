@@ -28,6 +28,10 @@ public class RoomManager {
     private final String DELETE;
     private final String SELECT_ALL;
     
+    /**
+     * Constructor for the object
+     * @param dataSource, DataSource required! You many get that object using the static method available in DataSource class
+     */
     public RoomManager(DataSource dataSource) {
         TEMP = new JdbcTemplate(dataSource);
         GET = "SELECT * FROM ROOMS WHERE ROOM_NUMBER =";
@@ -38,6 +42,10 @@ public class RoomManager {
         SELECT_ALL = "SELECT * FROM ROOMS";
     }
 
+    /**
+     * This returns you the list of all the rooms
+     * @return A list of rooms available.
+     */
     public List<Room> list() {
         List<Room> list = TEMP.query(this.SELECT_ALL, new RowMapper<Room>() {
             @Override
@@ -57,6 +65,11 @@ public class RoomManager {
         return list;
     }
     
+    /**
+     * This method allows you to delete a room entry record from the database
+     * @param roomNumber, RoomNumber for which the data will be removed.
+     * @return action success boolean
+     */
     public Boolean delete(int roomNumber) {
         try
         {
@@ -68,6 +81,11 @@ public class RoomManager {
         }
     }
     
+    /**
+     * This gets you the room object from the database using the id.
+     * @param id, Room number for the room to get.
+     * @return Room Object
+     */
     public Room get(Object id) {
         String query = this.GET + id;
         return TEMP.query(query, (ResultSet rs) -> {
@@ -87,7 +105,11 @@ public class RoomManager {
         });
     }
     
-    public int getLastRoomNumber()
+    /**
+     * This provides the last roomNumnber used. This must never be used anywhere other than this class
+     * @return last BookingID
+     */
+    private int getLastRoomNumber()
     {
         return TEMP.query(this.COUNT, (ResultSet rs) -> {
             if (rs.next()) {
@@ -97,6 +119,11 @@ public class RoomManager {
         });
     }
     
+    /**
+     * This method accepts a Room object that it then uses to insert or update existing one into database
+     * @param obj,An object of Room Class! Providing any other object will always return false
+     * @return action success boolean
+     */
     public Boolean saveOrUpdate(Object obj) {
         if (obj instanceof Room) // object is correct one i.e. it is a room since this class only deals with rooms!
         {

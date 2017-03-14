@@ -19,6 +19,10 @@ import wrappers.Room;
 @Controller
 public class Admin {
     
+    /**
+     *
+     * @return
+     */
     @RequestMapping(value = {"admin"})
     public ModelAndView loadPage()
     {
@@ -27,24 +31,44 @@ public class Admin {
         return new ModelAndView("admin");
     }
     
+    /**
+     *
+     * @param room
+     * @return
+     */
     public ModelAndView addRooms(@ModelAttribute("room") Room room)
     {
         // add room to database please make sure the data is correct and redirect accordingly
         return null;
     }
     
+    /**
+     *
+     * @param room
+     * @return
+     */
     public ModelAndView editRooms(@ModelAttribute("room") Room room)
     {
         // add room to database please make sure the data is correct and redirect accordingly
         return null;
     }
    
+    /**
+     *
+     * @param id
+     * @return
+     */
     public ModelAndView deleteRooms(@RequestParam("roomNumber") int id)
     {
         // add room to database please make sure the data is correct and redirect accordingly
         return null;
     }
     
+    /**
+     *
+     * @param data
+     * @return
+     */
     public ModelAndView getReservation(@ModelAttribute("newWrapper") String data)
     {
         // get the information and store it in the wrapper class and finally give the right result based on the search!

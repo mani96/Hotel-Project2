@@ -26,7 +26,7 @@ public class User {
     {
         
         //dump page info
-        return null;
+      return new ModelAndView("admin");
     }
     
     /**

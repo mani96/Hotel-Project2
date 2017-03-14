@@ -16,9 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 //just for testing purpose
 @Controller
 public class Admin {
-    @RequestMapping(value={"Admin"})
+    @RequestMapping(value={"admin"})
     public ModelAndView AdminController(ModelAndView mv){
-        mv = new ModelAndView("Admin");
+        mv = new ModelAndView("admin");
         return mv;
     }
 }

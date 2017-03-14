@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import wrappers.Authenticate;
 import wrappers.Security;
 import wrappers.User;
 
@@ -65,6 +66,34 @@ public class UserManager {
         return list;
     }
 
+    public boolean authenticate(Authenticate auth) {
+        if (auth.username.equalsIgnoreCase("")
+                || auth.username.equalsIgnoreCase(null)
+                || auth.password.equalsIgnoreCase("")
+                || auth.password.equalsIgnoreCase(null)) {
+            return false;
+        } else {
+            try {
+                String query = String.format(this.AUTHENTICATE, auth.username.toUpperCase(), AES.encrypt(auth.password));
+                return TEMP.query(query, (ResultSet rs) -> {
+                    if (rs.next()) {
+                        User r = new User();
+                        r.setAdmin(rs.getBoolean("TYPE"));
+                        r.setFirstName(rs.getString("FIRSTNAME"));
+                        r.setLastName(rs.getString("LASTNAME"));
+                        r.setPassword(rs.getString("PASSWORD"));
+                        r.setPhone(rs.getString("PHONE"));
+                        r.setUsername(rs.getString("USERNAME"));
+                        return r;
+                    }
+                    return null;
+                }) != null;
+            } catch (Exception ex) {
+                return false;
+            }
+        }
+    }
+    
     public List<User> listUser(boolean isAdmin) {
         if (isAdmin) {
             List<User> list = TEMP.query(this.SELECT_ADMIN, new RowMapper<User>() {

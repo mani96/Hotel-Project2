@@ -8,6 +8,7 @@ package com.hotelProject.controllers;
 import dao.BookingManager;
 import dao.RoomManager;
 import datasource.Datasource;
+import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,36 +28,28 @@ public class Admin {
 
     @RequestMapping(value = {"admin"})
     public ModelAndView AdminController(ModelAndView mv) {
-        mv = new ModelAndView(new RedirectView("admin"));
+        mv = new ModelAndView(new RedirectView("rooms"));
         try {
             //get all rooms and their specifications
             RoomManager rooms = new RoomManager(Datasource.getDatasource());
-
+             //get all bookings
+            BookingManager bookings = new BookingManager(Datasource.getDatasource());
+            //add bookings to ModelAndView
+            mv.addObject("bookings", bookings.list());
             //add rooms to ModelAndView 
             mv.addObject("rooms", rooms.list());
         } catch (ClassNotFoundException e) {
             mv.addObject("rooms", null);
-        }
-
-        try {
-            //get all bookings
-            BookingManager bookings = new BookingManager(Datasource.getDatasource());
-
-            //add bookings to ModelAndView
-            mv.addObject("bookings", bookings.list());
-        } catch (ClassNotFoundException e) {
             mv.addObject("bookings", null);
         }
-
         //return ModelAndView
         return mv;
     }
 
-    @RequestMapping(value = {"addRoom", "editRoom"}, method = {RequestMethod.GET})
-    public ModelAndView addRooms(@ModelAttribute("room") Room room) {
-        // add room to database please make sure the data is correct and redirect accordingly
+    public ModelAndView addRooms(@RequestParam("") Map<String,String> values )
+    {
         ModelAndView mv = new ModelAndView(new RedirectView("admin"));
-
+        Room room = new Room();
         try {
             RoomManager rooms = new RoomManager(Datasource.getDatasource());
             if (rooms.saveOrUpdate(room)) {
@@ -75,6 +68,30 @@ public class Admin {
         }
         return mv;
     }
+    
+//    @RequestMapping(value = {"addRoom", "editRoom"}, method = {RequestMethod.GET})
+//    public ModelAndView addRooms(@ModelAttribute("room") Room room) {
+//        // add room to database please make sure the data is correct and redirect accordingly
+//        ModelAndView mv = new ModelAndView(new RedirectView("admin"));
+//
+//        try {
+//            RoomManager rooms = new RoomManager(Datasource.getDatasource());
+//            if (rooms.saveOrUpdate(room)) {
+//
+//                mv.addObject("status", "SUCCESS");
+//                mv.addObject("reason", "Room is saved successfully");
+//            } else {
+//
+//                mv.addObject("status", "FAILED");
+//                mv.addObject("reason", "Room could not be saved. Try again.");
+//            }
+//
+//        } catch (ClassNotFoundException e) {
+//            mv.addObject("status", "FAILED");
+//            mv.addObject("reason", "Database went wrong. Please try agian");
+//        }
+//        return mv;
+//    }
 
     @RequestMapping(value = {"deleteRoom"}, method = {RequestMethod.GET})
     public ModelAndView deleteRooms(@RequestParam("roomNumber") int id) {

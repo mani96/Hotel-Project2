@@ -39,9 +39,9 @@ public class index {
     }
     
     @RequestMapping(value = {"logout"})
-    public ModelAndView logout(ModelAndView mv){
+    public ModelAndView logout(ModelAndView mv,HttpServletRequest request){
         mv = new ModelAndView("index");
-        
+        request.getSession().invalidate();
         return mv;
     }
     

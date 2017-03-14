@@ -31,7 +31,7 @@ public class Datasource {
             ds = new SimpleDriverDataSource();
             ds.setDriverClass((Class<Driver>) Class.forName(driverClassName));
             ds.setUrl(new ConnectionBuilder()
-                    .setPort(3006)
+                    .setPort(3306)
                     .setHost("anirudh.ddns.net")
                     .setDatabase("hotel")
                     .setProtocol("jdbc:mysql")

@@ -3,7 +3,7 @@
     Created on : 13-Mar-2017, 4:40:37 PM
     Author     : manvir
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +12,7 @@
        
     </head>
     <body>
+        
        <!---------------------------navigation + slider--------------------->
     <%@include file="includes/navigation.jsp" %>
     
@@ -136,6 +137,7 @@
     </div>
         </div>
 </div>
+<div class="container-fluid">
     <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
     <!-------------------footer------------------------>
      <%@include file="includes/Login.jsp" %>
@@ -145,7 +147,7 @@
         </footer>
 		
     </div>
-   
+   </div>
    
    <%-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/script.min.js"></script>--%>

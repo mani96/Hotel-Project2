@@ -6,6 +6,7 @@
 <c:choose>
     <c:when test="${sessionScope.user == null }">
         <c:redirect url="index" />
+        <c:out value="<li role=\"presentation\"><a href=\"login\" data-toggle=\"modal\" data-target=\"#login\">login</a></li>" />
     </c:when>
     <c:otherwise>
         <c:out value="<li role=\"presentation\"><a href=\"logout\" data-toggle=\"modal\" data-target=\"#logout\">Logout</a></li>" />

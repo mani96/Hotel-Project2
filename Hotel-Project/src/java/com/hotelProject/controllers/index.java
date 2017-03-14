@@ -38,6 +38,13 @@ public class index {
         return mv;
     }
     
+    @RequestMapping(value = {"logout"})
+    public ModelAndView logout(ModelAndView mv){
+        mv = new ModelAndView("index");
+        
+        return mv;
+    }
+    
     /**
      *
      * @param auth

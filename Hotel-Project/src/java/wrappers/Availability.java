@@ -18,7 +18,7 @@ public class Availability {
         this.checkin = checkin;
         this.checkout = checkout;
         this.guest = guest;
-    }
-    
+    } 
+  
   
 }

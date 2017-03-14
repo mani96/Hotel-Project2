@@ -7,6 +7,7 @@ package controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import wrappers.Room;
@@ -18,11 +19,12 @@ import wrappers.Room;
 @Controller
 public class Admin {
     
+    @RequestMapping(value = "admin")
     public ModelAndView loadPage()
     {
         // give a list of all bookings already made
         // give a list of all the rooms numbers in the hotel
-        return null;
+        return new ModelAndView("admin");
     }
     
     public ModelAndView addRooms(@ModelAttribute("room") Room room)

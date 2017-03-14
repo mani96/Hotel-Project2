@@ -3,6 +3,7 @@ package com.hotelProject.controllers;
 
 import dao.UserManager;
 import datasource.Datasource;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,7 @@ public class index {
     }
     
     @RequestMapping(value = {"authenticate","login"}, method = {RequestMethod.POST})
-    public ModelAndView loginUser(@ModelAttribute("Authenticate") Authenticate auth)
+    public ModelAndView loginUser(@ModelAttribute("Authenticate") Authenticate auth,HttpServletRequest request)
     {
         ModelAndView mv = null;
         if(auth.username.isEmpty() || auth.password.isEmpty())
@@ -67,6 +68,7 @@ public class index {
                         mv.addObject("reason","User found(Customer) see user session variable.");
                     }
                     // user to be passed in sessions
+                    request.setAttribute("user", user);
                 }
                 else
                 {

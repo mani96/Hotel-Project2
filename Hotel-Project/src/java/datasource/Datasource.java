@@ -30,9 +30,14 @@ public class Datasource {
             String driverClassName = "com.mysql.jdbc.Driver";
             ds = new SimpleDriverDataSource();
             ds.setDriverClass((Class<Driver>) Class.forName(driverClassName));
-            ds.setUrl("jdbc:mysql://anirudh.ddns.net:3306/hotel");
-            ds.setUsername("hotel");
-            ds.setPassword("dirtyhotel");
+            ds.setUrl(new ConnectionBuilder()
+                    .setPort(3006)
+                    .setHost("anirudh.ddns.net")
+                    .setDatabase("hotel")
+                    .setProtocol("jdbc:mysql")
+                    .build().toString());
+            ds.setUsername(Connection.getUSERNAME());
+            ds.setPassword(Connection.getPASSWORD());
             count++;
             return ds;
         }

@@ -80,7 +80,7 @@ public class index {
                         mv.addObject("reason","User found(Customer) see user session variable.");
                     }
                     // user to be passed in sessions
-                    request.setAttribute("user", user);
+                    request.getSession().setAttribute("user", user);
                 }
                 else
                 {

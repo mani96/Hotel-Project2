@@ -27,7 +27,7 @@
 		   
 		   </div>
 		   <div class="col-3 col-md-3">
-		   <select class="select_room" data-style="btn-primary" onchange="roomType(this.value)" >
+		   <select class="select_room form-control" data-style="btn-primary" onchange="roomType(this.value)" >
       <option value="1">Single-Bed Room</option>
       <option value="2">Double-Bed Room</option>
       <option value="3">Triple-Bed Room</option>
@@ -35,14 +35,19 @@
 		   </div>
 		   <div class="col-3 col-md-3">
 		    <div class="row">
+                        <div class="col-6 col-md-6"><p>Adults Per Room</p></div>
+                         <div class="col-6 col-md-6">
 			<div id="Sadults">
 			
 			</div>
+                             </div>
 			</div>
-			<div class="row">
+			<div class="row" style="margin-top: 10px;">
+                            <div class="col-6 col-md-6"><p>Kids Per Room</p></div>
+                            <div class="col-6 col-md-6">
 			<div id="Skids">
 			
-			</div>
+                        </div></div>
 			</div>
 		   </div>
 		   <div class="row">

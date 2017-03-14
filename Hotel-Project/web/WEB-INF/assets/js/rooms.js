@@ -12,8 +12,8 @@ $(document).ready(function(){
 	function room(val){
 	var i = Number(val) ;
 	var arr = [];
-	var adults = "<select class='select_adults' data-style='btn-primary' >";
-	var kids = "<select class='select_adults' data-style='btn-primary' >";
+	var adults = "<select class='select_stuff form-control' data-style='btn-primary' >";
+	var kids = "<select class='select_stuff form-control' data-style='btn-primary' >";
 	
 	for(var j = 0; j < i; j++){
 	   arr.push(j);

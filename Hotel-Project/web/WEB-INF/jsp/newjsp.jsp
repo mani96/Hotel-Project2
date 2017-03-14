@@ -1,28 +1,30 @@
 <%-- 
-    Document   : Admin
-    Created on : 13-Mar-2017, 4:40:37 PM
+    Document   : newjsp
+    Created on : 14-Mar-2017, 2:04:09 AM
     Author     : manvir
 --%>
-
+<%----just for testing purpose-------------%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-         <%@include file="includes/header.jsp" %>
-       
-    </head>
-    <body>
-       <!---------------------------navigation + slider--------------------->
+
+<html lang="en">
+<head>
+  <title>Bootstrap Case</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
     <%@include file="includes/navigation.jsp" %>
-    
-    <!--------admin form for editing adding rooms--------->
-    <style>
+     <%@include file="includes/Login.jsp" %>
+<style>
     .pad{
         padding-bottom: 15px;
     }
 </style>
-<div class="container" style="margin-top: 10px">
-    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+<div class="container">
   
   <ul class="nav nav-pills">
     <li class="active"><a data-toggle="pill" href="#addRooms">Add Rooms</a></li>
@@ -136,20 +138,7 @@
     </div>
         </div>
 </div>
-    <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
-    <!-------------------footer------------------------>
-     <%@include file="includes/Login.jsp" %>
-    <div class="footer-clean">
-        <footer>
-      <%@include file="includes/Footer.jsp" %>
-        </footer>
-		
-    </div>
-   
-   
-   <%-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/script.min.js"></script>--%>
-     <script src="${pageContext.request.contextPath}/assets/js/rooms.js"></script>
 
-    </body>
+</body>
 </html>
+

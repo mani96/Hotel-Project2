@@ -19,7 +19,7 @@ import wrappers.Room;
 @Controller
 public class Admin {
     
-    @RequestMapping(value = "admin")
+    @RequestMapping(value = {"admin"})
     public ModelAndView loadPage()
     {
         // give a list of all bookings already made

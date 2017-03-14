@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package com.hotelProject.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -14,5 +16,18 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class User {
+    
+    @RequestMapping(value = {"user"})
+    public ModelAndView loadPage()
+    {
+        
+        //dump page info
+        return null;
+    }
+    
+    public ModelAndView bookRoom()
+    {
+        return null;
+    }
     
 }

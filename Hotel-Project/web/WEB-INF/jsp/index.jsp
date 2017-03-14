@@ -8,36 +8,36 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <%@include file="includes/header.jsp" %>
+    <head>
+        <%@include file="includes/header.jsp" %>
 
-</head>
+    </head>
 
-<body>
-   
- <!---------------------------navigation + slider--------------------->
-    <%@include file="includes/navigation.jsp" %>
-    <!------------login-form------------------>
-     <%@include file="includes/Login.jsp" %>
-	<!-----------------------------------------check form-------------------------------->
+    <body>
+
+        <!---------------------------navigation + slider--------------------->
+        <%@include file="includes/navigation.jsp" %>
+        <!------------login-form------------------>
+        <%@include file="includes/Login.jsp" %>
+        <!-----------------------------------------check form-------------------------------->
         <%@include file="includes/checkAvailability.jsp" %>
-	<!---------------------------------Gallery + Map------------------------------------------------------>
-         <div class="container-fluid">
-        <%@include file="includes/GalleryMap.jsp" %>
-        
-        <!-------------------footer------------------------>
-    <div class="footer-clean">
-        <footer>
-      <%@include file="includes/Footer.jsp" %>
-        </footer>
-		
-    </div>
-   </div>
-   
-    
-     <script src="${pageContext.request.contextPath}/assets/js/rooms.js"></script>
-	
-	
-</body>
+        <!---------------------------------Gallery + Map------------------------------------------------------>
+        <div class="container-fluid">
+            <%@include file="includes/GalleryMap.jsp" %>
+
+            <!-------------------footer------------------------>
+            <div class="footer-clean">
+                <footer>
+                    <%@include file="includes/Footer.jsp" %>
+                </footer>
+
+            </div>
+        </div>
+
+
+        <script src="${pageContext.request.contextPath}/assets/js/rooms.js"></script>
+
+
+    </body>
 
 </html>

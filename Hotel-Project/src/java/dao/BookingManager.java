@@ -28,6 +28,10 @@ public class BookingManager {
     private final String GET;
     private final String DELETE;
 
+    /**
+     * Constructor for the object
+     * @param dataSource, DataSource required! You many get that object using the static method available in DataSource class
+     */
     public BookingManager(DataSource dataSource) {
         TEMP = new JdbcTemplate(dataSource);
         INSERT = "INSERT INTO BOOKINGS(BOOKING_ID,USERNAME, ROOM_NUMBER, START_DATE, END_DATE, SPECIAL_NOTES) VALUES (?, ?, ?, ?, ?, ?)";
@@ -37,6 +41,12 @@ public class BookingManager {
         DELETE = "DELETE FROM BOOKINGS WHERE BOOKING_ID=?";
     }
 
+    /**
+     * This gets you the bookings making a search using a specific field for example( BOOKING_ID, USERNAME, START_DATE)
+     * @param s, Search that defines the specified field to search on.
+     * @param value, Value to search for in the table.
+     * @return First entry record in the database
+     */
     public Booking get(Search s, Object value) {
         String query = this.GET + " " + s.toString() + "=";
         switch (s.toString()) {
@@ -68,6 +78,10 @@ public class BookingManager {
         });
     }
     
+    /**
+     * This returns you the list of all the bookings
+     * @return A list of Bookings available.
+     */
     public List<Booking> list() {
         List<Booking> list = TEMP.query(this.SELECT_ALL, new RowMapper<Booking>() {
             @Override
@@ -85,6 +99,11 @@ public class BookingManager {
         return list;
     }
     
+    /**
+     * This method allows you to delete a booking entry record from the database
+     * @param bookingID, Booking ID for which the data will be removed.
+     * @return action success boolean
+     */
     public Boolean delete(int bookingID) {
         try
         {
@@ -95,6 +114,11 @@ public class BookingManager {
             return false;
         }
     }
+    /**
+     * This method accepts a Booking object that it then uses to insert into database.
+     * @param obj, An object of Booking Class! Providing any other object will always return false
+     * @return action success boolean
+     */
     public boolean doBooking(Object obj) {
         if (obj instanceof Booking) // object is correct one i.e. it is a room since this class only deals with rooms!
         {
@@ -134,7 +158,11 @@ public class BookingManager {
         }
     }
 
-    public int getLastBookingNumber()
+    /**
+     * This provides the ID for the last booking number. This must never be used anywhere other than this class
+     * @return last BookingID
+     */
+    private int getLastBookingNumber()
     {
         return TEMP.query("SELECT MAX(BOOKING_ID)FROM BOOKINGS", (ResultSet rs) -> {
             if (rs.next()) {

@@ -20,6 +20,10 @@ public class RestaurantManager {
     private final String GET;
     private final String DELETE;
 
+    /**
+     * Constructor for the object
+     * @param dataSource, DataSource required! You many get that object using the static method available in DataSource class
+     */
     public RestaurantManager(DataSource dataSource) {
         TEMP = new JdbcTemplate(dataSource);
         INSERT = "INSERT INTO MENU_ITEMS(ID, NAME, DESCRIPTION, PRICE, SERVES) VALUES (?, ? , ? , ? , ? )";
@@ -29,6 +33,11 @@ public class RestaurantManager {
         DELETE = "DELETE FROM MENU_ITEMS WHERE ID = ?";
     }
 
+    /**
+     * This method accepts a Item object that it then uses to insert or update existing one into database
+     * @param obj,An object of Item Class! Providing any other object will always return false
+     * @return action success boolean
+     */
     public Boolean saveOrUpdate(Object obj) {
         if (obj instanceof Item) // object is correct one i.e. it is an item since this class only deals with items!
         {
@@ -68,8 +77,12 @@ public class RestaurantManager {
         }
     }
 
-    public List<Object> list() {
-        List<Object> listSub = TEMP.query(this.SELECT_ALL, (ResultSet rs, int rowNum) -> {
+    /**
+     * This returns you the list of all the items
+     * @return A list of all items available.
+     */
+    public List<Item> list() {
+        List<Item> listSub = TEMP.query(this.SELECT_ALL, (ResultSet rs, int rowNum) -> {
             Item item = new Item();
             item.setId(rs.getInt("ID"));
             item.setDescription(rs.getString("DESCRIPTION"));
@@ -81,6 +94,11 @@ public class RestaurantManager {
         return listSub;
     }
 
+    /**
+     * This method allows you to delete an item entry record from the database
+     * @param id,Item ID for which the data will be removed.
+     * @return action success boolean
+     */
     public Boolean delete(int id) {
         try
         {
@@ -93,7 +111,12 @@ public class RestaurantManager {
         }
     }
 
-    public Object get(int id) {
+    /**
+     * This gets you the item based on the item id provided
+     * @param id, Item ID that is provided
+     * @return item object with all the details
+     */
+    public Item get(int id) {
         String query = this.GET + id;
         return TEMP.query(query , (ResultSet rs) -> {
             if (rs.next()) {
@@ -109,6 +132,11 @@ public class RestaurantManager {
         });
     }
 
+    /**
+     * This method checks for the presence of that item in the menu.
+     * @param id item id to search for
+     * @return boolean to confirm if the item exists
+     */
     public Boolean itemExists(int id) {
         String query = this.GET + id;
         Item i =  TEMP.query(query , (ResultSet rs) -> {

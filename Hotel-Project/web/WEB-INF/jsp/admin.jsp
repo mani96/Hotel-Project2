@@ -34,7 +34,7 @@
   <div id="tabs">
   <div class="tab-content">
     <div id="addRooms" class="tab-pane fade in active">
-       <form action="addRooms" method="post">
+       <form action="addRoom">
            <!--------------------ROOM NUMBER---------------------------------------->
           <div class="row pad">
          <div class="form-group">

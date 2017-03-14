@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import wrappers.Authenticate;
 import wrappers.User;
 
@@ -52,7 +51,7 @@ public class index {
         if(auth.username.isEmpty() || auth.password.isEmpty())
         {
             // empty username and password redirect to login page again!
-            mv = new ModelAndView(new RedirectView("index"));
+            mv = new ModelAndView("index");
             mv.addObject("status","FAILED");
             mv.addObject("reason","Empty username or password!");
         }
@@ -68,14 +67,14 @@ public class index {
                     if(user.isAdmin())
                     {
                         // redirect to admin page
-                        mv = new ModelAndView(new RedirectView("admin"));
+                        mv = new ModelAndView("admin");
                         mv.addObject("status","SUCCESS");
                         mv.addObject("reason","User found(Admin) see user session variable.");
                     }
                     else
                     {
                         // redirect to user page
-                        mv = new ModelAndView(new RedirectView("user"));
+                        mv = new ModelAndView("user");
                         mv.addObject("status","SUCCESS");
                         mv.addObject("reason","User found(Customer) see user session variable.");
                     }
@@ -87,14 +86,14 @@ public class index {
                     if(usm.get(auth.username) == null)
                     {
                         // user doesn't exists redirect to register page!
-                        mv = new ModelAndView(new RedirectView("register"));
+                        mv = new ModelAndView("register");
                         mv.addObject("status","FAILED");
                         mv.addObject("reason","User doesn't exists!");
                     }
                     else
                     {
                         // password wrong redirect to login page!
-                        mv = new ModelAndView(new RedirectView("index"));
+                        mv = new ModelAndView("index");
                         mv.addObject("status","FAILED");
                         mv.addObject("reason","Wrong Password!");
                     }

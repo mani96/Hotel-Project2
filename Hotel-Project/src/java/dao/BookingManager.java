@@ -114,6 +114,7 @@ public class BookingManager {
             return false;
         }
     }
+    
     /**
      * This method accepts a Booking object that it then uses to insert into database.
      * @param obj, An object of Booking Class! Providing any other object will always return false

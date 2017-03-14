@@ -14,6 +14,9 @@ public class Availability {
     public String checkout;
     public String guest;
 
+    public Availability() {}
+
+    
     public Availability(String checkin, String checkout, String guest) {
         this.checkin = checkin;
         this.checkout = checkout;

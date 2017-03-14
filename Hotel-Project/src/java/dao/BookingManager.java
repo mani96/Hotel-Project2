@@ -27,7 +27,7 @@ public class BookingManager {
     private final String SELECT_ALL;
     private final String GET;
     private final String DELETE;
-
+    
     /**
      * Constructor for the object
      * @param dataSource, DataSource required! You many get that object using the static method available in DataSource class
@@ -47,7 +47,7 @@ public class BookingManager {
      * @param value, Value to search for in the table.
      * @return First entry record in the database
      */
-    public Booking get(Search s, Object value) {
+    public List<Booking> get(Search s, Object value) {
         String query = this.GET + " " + s.toString() + "=";
         switch (s.toString()) {
             case "BOOKING_ID":
@@ -62,9 +62,10 @@ public class BookingManager {
             default:
                 break;
         }
-        System.out.println(query);
-        return TEMP.query(query, (ResultSet rs) -> {
-            if (rs.next()) {
+        
+        List<Booking> bookings = TEMP.query(query, new RowMapper<Booking>() {
+            @Override
+            public Booking mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Booking b = new Booking();
                 b.setBooking_id(rs.getInt("BOOKING_ID"));
                 b.setEnd_date(rs.getString("END_DATE"));
@@ -74,8 +75,8 @@ public class BookingManager {
                 b.setUsername(rs.getString("USERNAME"));
                 return b;
             }
-            return null;
         });
+        return bookings;
     }
     
     /**
@@ -171,6 +172,31 @@ public class BookingManager {
             }
             return 0;
         });
+    }
+    
+    /**
+     * This method takes a well formated date and the room number to check if the room is available.
+     * @param startDate
+     * @param roomNumber
+     * @return 
+     */
+    public boolean isAvailable(String startDate, int roomNumber)
+    {
+        List<Booking> bookings = (List<Booking>) this.get(Search.START_DATE, startDate);
+        if(bookings.isEmpty())
+        {
+            return true;
+        }
+        else
+        {
+            for (int i = 0; i < bookings.size(); i++) {
+                if(bookings.get(i).getRoom_number() == roomNumber)
+                {
+                    return false;
+                }
+            }
+            return true;   
+        }
     }
     
 }

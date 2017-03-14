@@ -27,6 +27,7 @@ public class RoomManager {
     private final String UPDATE;
     private final String DELETE;
     private final String SELECT_ALL;
+    private final String SELECT_TYPE;
     
     /**
      * Constructor for the object
@@ -40,6 +41,7 @@ public class RoomManager {
         UPDATE = "UPDATE ROOMS SET PACKAGE_ID=?,GUESTS=?,FRIDGE=?,TV=?,WIFI=?,PRICE=? WHERE ROOM_NUMBER=?";
         DELETE = "DELETE FROM ROOMS WHERE ROOM_NUMBER = ?";
         SELECT_ALL = "SELECT * FROM ROOMS";
+        SELECT_TYPE = "SELECT * FROM ROOMS WHERE GUESTS=";
     }
 
     /**
@@ -48,6 +50,30 @@ public class RoomManager {
      */
     public List<Room> list() {
         List<Room> list = TEMP.query(this.SELECT_ALL, new RowMapper<Room>() {
+            @Override
+            public Room mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Room r = new Room();
+                r.setGuests(rs.getInt("GUESTS"));
+                r.setFridge(rs.getBoolean("FRIDGE"));
+                r.setTV(rs.getBoolean("TV"));
+                r.setWiFi(rs.getBoolean("WIFI"));
+                r.setPackageID(rs.getInt("PACKAGE_ID"));
+                r.setPackageID(rs.getInt("PACKAGE_ID"));
+                r.setPrice(rs.getDouble("PRICE"));
+                r.setRoomNumber(rs.getInt("ROOM_NUMBER"));
+                return r;
+            }
+        });
+        return list;
+    }
+    
+    /**
+     * This method returns all rooms that are of the specific guest number.
+     * @param guests
+     * @return 
+     */
+    public List<Room> list(int guests) {
+        List<Room> list = TEMP.query(this.SELECT_TYPE + guests, new RowMapper<Room>() {
             @Override
             public Room mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Room r = new Room();

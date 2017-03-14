@@ -1,15 +1,26 @@
 package com.hotelProject.controllers;
 
 
+import dao.BookingManager;
+import dao.RoomManager;
 import dao.UserManager;
 import datasource.Datasource;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import wrappers.Authenticate;
+import wrappers.DateFormatter;
+import wrappers.Room;
 import wrappers.User;
 
 /*
@@ -113,6 +124,62 @@ public class index {
             
         }
         return mv;
+    }
+    
+    @RequestMapping(value = {"lg"})
+    public @ResponseBody String getAvailable(@RequestParam("") Map<String,String> map)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        if(map.get("checkin") == null ||
+                map.get("checkout") == null ||
+                map.get("type") == null ||
+                map.get("checkin").isEmpty() ||
+                map.get("checkout").isEmpty() ||
+                map.get("type").isEmpty())
+        {
+            return null;
+        }
+        else
+        {
+            String checkin = DateFormatter.format(map.get("checkin"));
+            String checkout = DateFormatter.format(map.get("checkout"));
+            int type = Integer.parseInt(map.get("type"));
+            try {
+                RoomManager rman = new RoomManager(Datasource.getDatasource());
+                List<Room> list = rman.list(type);
+                if(list.isEmpty())
+                {
+                    try {
+                        return mapper.writeValueAsString(list);
+                    } catch (IOException ex) {
+                        System.out.println(ex);
+                        return null;
+                    }
+                }
+                else
+                {
+                    List<Room> available = new ArrayList<>();
+                    BookingManager man = new BookingManager(Datasource.getDatasource());
+                    for (int i = 0; i < list.size(); i++) {
+                        if(man.isAvailable(checkin, list.get(i).getRoomNumber()))
+                        {
+                            available.add(list.get(i));
+                        }
+                    }
+                    
+                    try {
+                        return mapper.writeValueAsString(list);
+                    } catch (IOException ex) {
+                        System.out.println(ex);
+                        return null;
+                    }
+                    
+                }
+            } catch (ClassNotFoundException ex) {
+                System.out.println(ex);
+                return null;
+            } 
+        }
     }
     
 }

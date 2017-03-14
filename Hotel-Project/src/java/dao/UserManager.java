@@ -12,7 +12,9 @@ import javax.sql.DataSource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import wrappers.Admin;
 import wrappers.Authenticate;
+import wrappers.Client;
 import wrappers.Security;
 import wrappers.User;
 
@@ -61,7 +63,15 @@ public class UserManager {
         List<User> list = TEMP.query(this.SELECT_ALL, new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-                User u = new User();
+                User u = null;
+                        if(rs.getBoolean("TYPE"))
+                        {
+                            u = new Admin();
+                        }
+                        else
+                        {
+                            u = new Client();
+                        }
                 u.setAdmin(rs.getBoolean("TYPE"));
                 u.setFirstName(rs.getString("FIRSTNAME"));
                 u.setLastName(rs.getString("LASTNAME"));
@@ -91,7 +101,15 @@ public class UserManager {
                 String query = String.format(this.AUTHENTICATE, auth.username.toUpperCase(), AES.encrypt(auth.password));
                 return TEMP.query(query, (ResultSet rs) -> {
                     if (rs.next()) {
-                        User r = new User();
+                        User r = null;
+                        if(rs.getBoolean("TYPE"))
+                        {
+                            r = new Admin();
+                        }
+                        else
+                        {
+                            r = new Client();
+                        }
                         r.setAdmin(rs.getBoolean("TYPE"));
                         r.setFirstName(rs.getString("FIRSTNAME"));
                         r.setLastName(rs.getString("LASTNAME"));
@@ -118,7 +136,15 @@ public class UserManager {
             List<User> list = TEMP.query(this.SELECT_ADMIN, new RowMapper<User>() {
                 @Override
                 public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    User u = new User();
+                    User u = null;
+                        if(rs.getBoolean("TYPE"))
+                        {
+                            u = new Admin();
+                        }
+                        else
+                        {
+                            u = new Client();
+                        }
                     u.setAdmin(rs.getBoolean("TYPE"));
                     u.setFirstName(rs.getString("FIRSTNAME"));
                     u.setLastName(rs.getString("LASTNAME"));
@@ -133,7 +159,15 @@ public class UserManager {
             List<User> list = TEMP.query(this.SELECT_USERS, new RowMapper<User>() {
                 @Override
                 public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    User u = new User();
+                    User u = null;
+                    if(rs.getBoolean("TYPE"))
+                    {
+                        u = new Admin();
+                    }
+                    else
+                    {
+                        u = new Client();
+                    }
                     u.setAdmin(rs.getBoolean("TYPE"));
                     u.setFirstName(rs.getString("FIRSTNAME"));
                     u.setLastName(rs.getString("LASTNAME"));
@@ -169,7 +203,15 @@ public class UserManager {
         String query = this.GET + "\'" + username.toUpperCase() + "\'";
         return TEMP.query(query, (ResultSet rs) -> {
             if (rs.next()) {
-                User r = new User();
+                User r = null;
+                if(rs.getBoolean("TYPE"))
+                {
+                    r = new Admin();
+                }
+                else
+                {
+                    r = new Client();
+                }
                 r.setAdmin(rs.getBoolean("TYPE"));
                 r.setFirstName(rs.getString("FIRSTNAME"));
                 r.setLastName(rs.getString("LASTNAME"));
@@ -199,7 +241,15 @@ public class UserManager {
                 String query = String.format(this.AUTHENTICATE, username.toUpperCase(), AES.encrypt(password));
                 return TEMP.query(query, (ResultSet rs) -> {
                     if (rs.next()) {
-                        User r = new User();
+                        User r = null;
+                        if(rs.getBoolean("TYPE"))
+                        {
+                            r = new Admin();
+                        }
+                        else
+                        {
+                            r = new Client();
+                        }
                         r.setAdmin(rs.getBoolean("TYPE"));
                         r.setFirstName(rs.getString("FIRSTNAME"));
                         r.setLastName(rs.getString("LASTNAME"));

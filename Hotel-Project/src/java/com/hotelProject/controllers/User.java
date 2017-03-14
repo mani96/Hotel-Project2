@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hotelProject.controllers;
+package controllers;
+
+import org.springframework.stereotype.Controller;
 
 /**
  *
- * @author manvir
+ * @author Anirudh
  */
-public class GlobalController {
-    //I need all global objects status like login - loggout status, login as a admin or user
+
+@Controller
+public class User {
+    
 }

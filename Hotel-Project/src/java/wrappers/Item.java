@@ -164,10 +164,6 @@ public class Item implements Serializable {
         this.serves = serves;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", serves=" + serves + '}';
-    }
 
     @Override
     public boolean equals(Object obj) {

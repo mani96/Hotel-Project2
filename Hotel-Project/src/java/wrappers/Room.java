@@ -176,10 +176,4 @@ public class Room implements Serializable{
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" + "roomNumber=" + roomNumber + ", packageID=" + packageID + ", guests=" + guests + ", Fridge=" + Fridge + ", TV=" + TV + ", WiFi=" + WiFi + ", price=" + price + '}';
-    }
-
-    
 }

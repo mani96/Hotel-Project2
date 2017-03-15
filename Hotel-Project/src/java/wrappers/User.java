@@ -157,11 +157,5 @@ public abstract class User implements Serializable{
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
-
-    @Override
-    public String toString() {
-        return "User{" + "username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password + ", phone=" + phone + ", admin=" + admin + '}';
-    }
- 
     
 }

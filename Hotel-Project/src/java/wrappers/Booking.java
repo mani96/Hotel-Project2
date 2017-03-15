@@ -154,10 +154,5 @@ public class Booking implements Serializable{
         this.special_notes = special_notes;
     }
 
-    @Override
-    public String toString() {
-        return "Booking{" + "booking_id=" + booking_id + ", username=" + username + ", room_number=" + room_number + ", start_date=" + start_date + ", end_date=" + end_date + ", special_notes=" + special_notes + '}';
-    }
-
     
 }

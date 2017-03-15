@@ -24,5 +24,9 @@ public enum Search {
     /**
      * START_DATE
      */
-    START_DATE
+    START_DATE,
+    /**
+     * ROOM_NUMBER
+     */
+    ROOM_NUMBER
 }

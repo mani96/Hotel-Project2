@@ -6,6 +6,8 @@
 $(document).ready(function(){
 	//alert($(".select_room").val());
 	room($(".select_room").val());
+        
+        
 	});
 	
 	
@@ -36,3 +38,4 @@ $(document).ready(function(){
 	function roomType(value){
 	room(value);
 	}
+   

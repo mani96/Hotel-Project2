@@ -61,20 +61,54 @@
 
                 </form>
             </div>
+            
         </div>
     </div>
 
 </div>
 <script>
-    $(document).ready(function(){
-     $("#checkAv").submit(function(event){
+    $("#checkAv").submit(function(event){
         event.preventDefault();
-      var checkin = $('#datepicker1').val();
-      var checkout = $('#datepicker1').val();
-      var guests = $('#guests').val();
-      alert(checkin + checkout + guests);
-      
-    });    
+        test();
     });
-   
-    </script>
+     function test(){
+        
+      var checkin = $("#datepicker1").val();
+      var checkout = $("#datepicker2").val();
+      var guests = $("#guests").val();
+      alert(guests);
+      
+      $.ajax({
+          type: "GET",
+               contentType : "application/json",
+               url : "${home}availability",
+                
+               dataType: 'text',
+               data: "checkin="+checkin+"&checkout="+checkout+"&guests=" + guests,
+               
+               success: function(data){
+                   
+                   alert("success" + data);
+                   printing(data);
+               },
+                       error: function(e){
+    alert("error" + e);                   
+    }
+      });
+      
+    } 
+    function printing(value){
+    var arr;
+    var print;
+    arr = JSON.parse(value);
+    for(var i =0; i < arr.length; i++){
+        var obj = arr[i];
+        for(var key in obj){
+            var value = obj[key];
+          print += ("<br> - " + key + ": " + value );
+        }
+        }
+         $('#result').html(print);
+    }
+    
+</script>

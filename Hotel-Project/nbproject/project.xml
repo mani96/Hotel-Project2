@@ -19,7 +19,7 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.jackson-all-1.9.5.classpath}</file>
+                    <file>${file.reference.jackson-all-1.9.5.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

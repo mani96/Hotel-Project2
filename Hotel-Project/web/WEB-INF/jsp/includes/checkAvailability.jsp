@@ -8,13 +8,13 @@
     <div class="container" >
         <div class="checkForm" style="text-align: center">
             <div class="row">
-                <form action="" method="post">
+                <form id="checkAv" action="" method="post">
                     <div class="col-3 col-md-3">
                         <div class="input-group date mg-check-in">
                             <div class="input-group date mg-check-in">
 
                                 <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                <input type="text" class="form-control" name="checkin" id="datepicker1" placeholder="Check-In Date">
+                                <input type="text" class="form-control" name="checkin" id="datepicker1" required placeholder="Check-In Date">
                             </div>
                         </div>
 
@@ -22,12 +22,12 @@
                     <div class="col-3 col-md-3">
                         <div class="input-group date mg-check-in">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                            <input type="text" name="checkout" class="form-control" id="datepicker2" placeholder="Check-Out Date">
+                            <input type="text" name="checkout" class="form-control" required id="datepicker2" placeholder="Check-Out Date">
                         </div>
 
                     </div>
                     <div class="col-3 col-md-3">
-                        <select class="select_room form-control" data-style="btn-primary" name="guest" onchange="roomType(this.value)" >
+                        <select class="select_room form-control" data-style="btn-primary" id="guests" name="guests" onchange="roomType(this.value)" >
                             <option value="1">Single-Bed Room</option>
                             <option value="2">Double-Bed Room</option>
                             <option value="3">Triple-Bed Room</option>
@@ -65,3 +65,16 @@
     </div>
 
 </div>
+<script>
+    $(document).ready(function(){
+     $("#checkAv").submit(function(event){
+        event.preventDefault();
+      var checkin = $('#datepicker1').val();
+      var checkout = $('#datepicker1').val();
+      var guests = $('#guests').val();
+      alert(checkin + checkout + guests);
+      
+    });    
+    });
+   
+    </script>

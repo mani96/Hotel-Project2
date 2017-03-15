@@ -75,29 +75,6 @@ public class Admin {
         return mv;
     }
 
-//    @RequestMapping(value = {"addRoom", "editRoom"}, method = {RequestMethod.GET})
-//    public ModelAndView addRooms(@ModelAttribute("room") Room room) {
-//        // add room to database please make sure the data is correct and redirect accordingly
-//        ModelAndView mv = new ModelAndView(new RedirectView("admin"));
-//
-//        try {
-//            RoomManager rooms = new RoomManager(Datasource.getDatasource());
-//            if (rooms.saveOrUpdate(room)) {
-//
-//                mv.addObject("status", "SUCCESS");
-//                mv.addObject("reason", "Room is saved successfully");
-//            } else {
-//
-//                mv.addObject("status", "FAILED");
-//                mv.addObject("reason", "Room could not be saved. Try again.");
-//            }
-//
-//        } catch (ClassNotFoundException e) {
-//            mv.addObject("status", "FAILED");
-//            mv.addObject("reason", "Database went wrong. Please try agian");
-//        }
-//        return mv;
-//    }
     @RequestMapping(value = {"deleteRoom"}, method = {RequestMethod.GET})
     public ModelAndView deleteRooms(@RequestParam("roomNumber") int id) {
         // add room to database please make sure the data is correct and redirect accordingly

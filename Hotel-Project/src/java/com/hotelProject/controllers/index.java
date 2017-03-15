@@ -126,10 +126,11 @@ public class index {
             String checkin = DateUtil.parseToDbFormat(map.get("checkin"));
             String checkout = DateUtil.parseToDbFormat(map.get("checkout"));
             int guests = Integer.parseInt(map.get("guests"));
+            
             try
             {
                 BookingManager rm = new BookingManager(Datasource.getDatasource());
-                List<Room> list = rm.getAvailableRoom(checkin, guests, checkout);
+                List<Room> list = rm.getAvailableRoom(checkin, checkout, guests);
                 if(list == null || list.isEmpty())
                 {
                     return null;
@@ -149,6 +150,7 @@ public class index {
                 return null;
             }
         }
+        
     }
     
 }

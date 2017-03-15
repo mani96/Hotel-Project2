@@ -197,7 +197,14 @@ public class BookingManager {
         });
     }
 
-    public List<Room> getAvailableRoom(String startDate, int guests, String endDate) {
+    /**
+     * This method gets all the available room for specific number of guests
+     * @param startDate
+     * @param guests
+     * @param endDate
+     * @return 
+     */
+    public List<Room> getAvailableRoom(String startDate, String endDate, int guests) {
         String query = "SELECT * FROM ROOMS WHERE GUESTS = " + guests + " AND ROOM_NUMBER NOT IN (SELECT ROOM_NUMBER FROM BOOKINGS WHERE BOOKINGS.START_DATE = \"" + startDate + "\")";
 
         List<Room> list = TEMP.query(query, new RowMapper<Room>() {

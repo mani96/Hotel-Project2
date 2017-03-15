@@ -28,11 +28,11 @@ public class Admin {
 
     @RequestMapping(value = {"admin"})
     public ModelAndView AdminController(ModelAndView mv) {
-        mv = new ModelAndView(new RedirectView("rooms"));
+        mv = new ModelAndView(new RedirectView("admin"));
         try {
             //get all rooms and their specifications
             RoomManager rooms = new RoomManager(Datasource.getDatasource());
-             //get all bookings
+            //get all bookings
             BookingManager bookings = new BookingManager(Datasource.getDatasource());
             //add bookings to ModelAndView
             mv.addObject("bookings", bookings.list());
@@ -46,9 +46,9 @@ public class Admin {
         return mv;
     }
 
-    public ModelAndView addRooms(@RequestParam("") Map<String,String> values )
-    {
-        ModelAndView mv = new ModelAndView(new RedirectView("admin"));
+    @RequestMapping(value = {"addRoom"})
+    public ModelAndView addRooms(@RequestParam("") Map<String, String> values) {
+        ModelAndView mv = new ModelAndView(new RedirectView("index"));
         Room room = new Room();
         room.setRoomNumber(Integer.parseInt(values.get("RoomNumber")));
         room.setFridge(Boolean.valueOf(values.get("Fridge")));
@@ -74,7 +74,7 @@ public class Admin {
         }
         return mv;
     }
-    
+
 //    @RequestMapping(value = {"addRoom", "editRoom"}, method = {RequestMethod.GET})
 //    public ModelAndView addRooms(@ModelAttribute("room") Room room) {
 //        // add room to database please make sure the data is correct and redirect accordingly
@@ -98,7 +98,6 @@ public class Admin {
 //        }
 //        return mv;
 //    }
-
     @RequestMapping(value = {"deleteRoom"}, method = {RequestMethod.GET})
     public ModelAndView deleteRooms(@RequestParam("roomNumber") int id) {
         // add room to database please make sure the data is correct and redirect accordingly

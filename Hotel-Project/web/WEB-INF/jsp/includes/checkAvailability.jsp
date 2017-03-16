@@ -57,58 +57,65 @@
                         <div id="result">
                             RESULT
                         </div>
+                        <img src="assets/img/ajax-loader.gif" id="loader"/>
                     </div>
 
                 </form>
             </div>
-            
+
         </div>
     </div>
 
 </div>
 <script>
-    $("#checkAv").submit(function(event){
+    $(document).ready(function () {
+        $("#loader").hide();
+    });
+    $("#checkAv").submit(function (event) {
         event.preventDefault();
+        $("#result").html("");
+        $("#loader").show();
         test();
     });
-     function test(){
-        
-      var checkin = $("#datepicker1").val();
-      var checkout = $("#datepicker2").val();
-      var guests = $("#guests").val();
-      alert(guests);
-      
-      $.ajax({
-          type: "GET",
-               contentType : "application/json",
-               url : "${home}availability",
-                
-               dataType: 'text',
-               data: "checkin="+checkin+"&checkout="+checkout+"&guests=" + guests,
-               
-               success: function(data){
-                   
-                   alert("success" + data);
-                   printing(data);
-               },
-                       error: function(e){
-    alert("error" + e);                   
+    function test() {
+
+        var checkin = $("#datepicker1").val();
+        var checkout = $("#datepicker2").val();
+        var guests = $("#guests").val();
+        // alert(guests);
+
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "${home}availability",
+
+            dataType: 'text',
+            data: "checkin=" + checkin + "&checkout=" + checkout + "&guests=" + guests,
+
+            success: function (data) {
+
+                //alert("success" + data);
+                printing(data);
+            },
+            error: function (e) {
+                alert("error" + e);
+            }
+        });
+
     }
-      });
-      
-    } 
-    function printing(value){
-    var arr;
-    var print;
-    arr = JSON.parse(value);
-    for(var i =0; i < arr.length; i++){
-        var obj = arr[i];
-        for(var key in obj){
-            var value = obj[key];
-          print += ("<br> - " + key + ": " + value );
+    function printing(value) {
+        $("#loader").hide();
+        var arr;
+        var print;
+        arr = JSON.parse(value);
+        for (var i = 0; i < arr.length; i++) {
+            var obj = arr[i];
+            for (var key in obj) {
+                var value = obj[key];
+                print += ("<br> - " + key + ": " + value);
+            }
         }
-        }
-         $('#result').html(print);
+        $('#result').html(print);
     }
-    
+
 </script>

@@ -93,8 +93,6 @@
             data: "checkin=" + checkin + "&checkout=" + checkout + "&guests=" + guests,
 
             success: function (data) {
-
-                //alert("success" + data);
                 printing(data);
             },
             error: function (e) {

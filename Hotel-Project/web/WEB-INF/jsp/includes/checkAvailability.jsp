@@ -57,7 +57,7 @@
                         <div id="result">
                             RESULT
                         </div>
-                        <img src="assets/img/ajax-loader.gif" id="loader"/>
+                        <img src="assets/img/ajax-loader.gif" id="loader" />
                     </div>
 
                 </form>

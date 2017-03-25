@@ -104,15 +104,32 @@
     function printing(value) {
         $("#loader").hide();
         var arr;
-        var print;
+        var table = "table table-striped";
+        var k = 0;
+        var print = ""; 
         arr = JSON.parse(value);
+        print += " <table class='table table-striped'> <tbody>";
         for (var i = 0; i < arr.length; i++) {
             var obj = arr[i];
             for (var key in obj) {
+                
+                 k++;
+                  if(k ==1){
+              print +="<tr>"
+                //alert(k + "<br> - " + key + ": " + value);
+                
+            }
                 var value = obj[key];
-                print += ("<br> - " + key + ": " + value);
+                print += ("<td>" + key + ": " + value + "</td>");
+                 if(k ==7){
+              print += "</tr>";
+               // alert(k + "<br> - " + key + ": " + value);
+                k = 0;
+            }
+                
             }
         }
+        print += "</tbody> </table>";
         $('#result').html(print);
     }
 

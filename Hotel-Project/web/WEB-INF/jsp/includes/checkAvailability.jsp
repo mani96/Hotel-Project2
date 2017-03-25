@@ -6,8 +6,8 @@
 
 <div class="container-fluid well" style="padding-bottom: 100px;">
     <div class="container" >
-        <div class="checkForm" style="text-align: center">
-            <div class="row">
+        <div class="checkForm" >
+            <div class="row text-center">
                 <form id="checkAv" action="" method="post">
                     <div class="col-3 col-md-3">
                         <div class="input-group date mg-check-in">
@@ -51,18 +51,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <button type="submit" class="btn btn-primary">Check Availability</button>
+                        <button type="submit" class="btn btn-primary">Check Availability</button><br><br>
                     </div>
                     <div class="row">
-                        <div id="result">
-                            RESULT
-                        </div>
+
                         <img src="assets/img/ajax-loader.gif" id="loader" />
                     </div>
 
                 </form>
             </div>
 
+        </div>
+        <div id="result">
+            RESULT
         </div>
     </div>
 
@@ -106,27 +107,32 @@
         var arr;
         var table = "table table-striped";
         var k = 0;
-        var print = ""; 
+        var print = "";
         arr = JSON.parse(value);
-        print += " <table class='table table-striped'> <tbody>";
+        print += " <table class='table table-striped'> <thead><tr><th>Room Number</th><th>Package ID</th>\n\
+   <th>Maximum Guest's(Adults + Kids)</th> <th>Price</th> <th>WiFi</th><th>Fridge</th> <th>TV</th></tr></thead> <tbody>";
         for (var i = 0; i < arr.length; i++) {
             var obj = arr[i];
             for (var key in obj) {
-                
-                 k++;
-                  if(k ==1){
-              print +="<tr>"
-                //alert(k + "<br> - " + key + ": " + value);
-                
-            }
+
+                k++;
+                if (k == 1) {
+                    print += "<tr>"
+                    //alert(k + "<br> - " + key + ": " + value);
+
+                }
                 var value = obj[key];
-                print += ("<td>" + key + ": " + value + "</td>");
-                 if(k ==7){
-              print += "</tr>";
-               // alert(k + "<br> - " + key + ": " + value);
-                k = 0;
-            }
-                
+               if(value ==  true || value == false){
+                // value = (value == true ? 'Yes' : 'No');
+                  
+               }
+                print += ("<td>" +  value + "</td>");
+                if (k == 7) {
+                    print += "</tr>";
+                    // alert(k + "<br> - " + key + ": " + value);
+                    k = 0;
+                }
+
             }
         }
         print += "</tbody> </table>";

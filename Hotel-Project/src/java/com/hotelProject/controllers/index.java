@@ -132,7 +132,7 @@ public class index {
                 List<Room> list = rm.getAvailableRoom(checkin, checkout, guests);
                 if(list == null || list.isEmpty())
                 {
-                    return null;
+                   return null;
                 }
                 else
                 {

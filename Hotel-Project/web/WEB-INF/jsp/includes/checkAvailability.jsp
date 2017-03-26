@@ -90,53 +90,33 @@
             contentType: "application/json",
             url: "${home}availability",
 
-            dataType: 'text',
+            dataType: 'json',
             data: "checkin=" + checkin + "&checkout=" + checkout + "&guests=" + guests,
 
             success: function (data) {
-                printing(data);
+                print2(data);
             },
             error: function (e) {
                 alert("error" + e);
+                  $("#loader").hide();
             }
         });
 
     }
-    function printing(value) {
-        $("#loader").hide();
-        var arr;
-        var table = "table table-striped";
-        var k = 0;
-        var print = "";
-        arr = JSON.parse(value);
+    
+function print2(value)
+{
+     $("#loader").hide();
+     var print = "";
         print += " <table class='table table-striped'> <thead><tr><th>Room Number</th><th>Package ID</th>\n\
    <th>Maximum Guest's(Adults + Kids)</th> <th>Price</th> <th>WiFi</th><th>Fridge</th> <th>TV</th></tr></thead> <tbody>";
-        for (var i = 0; i < arr.length; i++) {
-            var obj = arr[i];
-            for (var key in obj) {
-
-                k++;
-                if (k == 1) {
-                    print += "<tr>"
-                    //alert(k + "<br> - " + key + ": " + value);
-
-                }
-                var value = obj[key];
-               if(value ==  true || value == false){
-                // value = (value == true ? 'Yes' : 'No');
-                  
-               }
-                print += ("<td>" +  value + "</td>");
-                if (k == 7) {
-                    print += "</tr>";
-                    // alert(k + "<br> - " + key + ": " + value);
-                    k = 0;
-                }
-
-            }
-        }
-        print += "</tbody> </table>";
+        
+        $.each(value, function(index, r) {
+            print += "<tr> <td> "+ r.roomNumber+"</td><td>"+r.packageID+"</td><td>"+r.guests+"</td><td>"
+            +r.Fridge+"</td><td>"+r.TV+"</td><td>"+r.WiFi+"</td><td>"+r.price+"</td><td>";
+         }); 
+          print += "</tbody> </table>";
         $('#result').html(print);
-    }
-
+        
+}
 </script>

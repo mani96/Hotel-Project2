@@ -3,7 +3,6 @@ package com.hotelProject.controllers;
 import dao.BookingManager;
 import dao.UserManager;
 import datasource.Datasource;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -109,8 +108,8 @@ public class index {
         return mv;
     }
 
-    @RequestMapping(value = {"availability"})
-    public @ResponseBody String getAvailable(@RequestParam("") Map<String, String> map) {
+    @RequestMapping(value = {"availability"}, produces="application/json")
+    public @ResponseBody List<Room> getAvailable(@RequestParam("") Map<String, String> map) {
         ObjectMapper mapper = new ObjectMapper();
         if(map.get("checkin") == null ||
                 map.get("checkout") == null ||
@@ -137,11 +136,7 @@ public class index {
                 }
                 else
                 {
-                    try {
-                        return mapper.writeValueAsString(list);
-                    } catch (IOException e) {
-                        return null;
-                    }
+                    return list;
                 }
             }
             catch(ClassNotFoundException ex)

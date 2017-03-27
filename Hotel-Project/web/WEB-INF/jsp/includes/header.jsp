@@ -27,6 +27,7 @@
 <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/homeStyle.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Filterable-Gallery.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
 

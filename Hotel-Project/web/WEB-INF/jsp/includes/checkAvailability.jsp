@@ -98,25 +98,25 @@
             },
             error: function (e) {
                 alert("error" + e);
-                  $("#loader").hide();
+                $("#loader").hide();
             }
         });
 
     }
-    
-function print2(value)
-{
-     $("#loader").hide();
-     var print = "";
+
+    function print2(value)
+    {
+        $("#loader").hide();
+        var print = "";
         print += " <table class='table table-striped'> <thead><tr><th>Room Number</th><th>Package ID</th>\n\
-   <th>Maximum Guest's(Adults + Kids)</th> <th>Price</th> <th>WiFi</th><th>Fridge</th> <th>TV</th></tr></thead> <tbody>";
-        
-        $.each(value, function(index, r) {
-            print += "<tr> <td> "+ r.roomNumber+"</td><td>"+r.packageID+"</td><td>"+r.guests+"</td><td>"
-            +r.Fridge+"</td><td>"+r.TV+"</td><td>"+r.WiFi+"</td><td>"+r.price+"</td><td>";
-         }); 
-          print += "</tbody> </table>";
+   <th>Price</th> <th>TV</th> <th>WiFi</th><th>Fridge</th> <th>Maximum Guest's(Adults + Kids)</th></tr></thead> <tbody>";
+
+        $.each(value, function (index, r) {
+            print += "<tr> <td> " + r.roomNumber + "</td><td>" + r.packageID + "</td><td>" + r.price+ "</td><td>"
+            + r.TV + "</td><td>" + r.WiFi + "</td><td>" + r.Fridge+ "</td><td class='text-center'>" + r.guests + " <a onClick='Book()' href='' style='margin-left: 75px;'>Book</a></td><td></tr>";
+        });
+        print += "</tbody> </table>";
         $('#result').html(print);
-        
-}
+
+    }
 </script>

@@ -23,7 +23,7 @@
         <%@include file="includes/checkAvailability.jsp" %>
         <!---------------------------------Gallery + Map------------------------------------------------------>
         <div class="container-fluid">
-            <%@include file="includes/GalleryMap.jsp" %>
+            <%@include file="includes/gallery.jsp" %>
 
             <!-------------------footer------------------------>
             <div class="footer-clean">
@@ -36,7 +36,7 @@
 
 
         <script src="${pageContext.request.contextPath}/assets/js/rooms.js"></script>
-
+<script src = "${pageContext.request.contextPath}/assets/js/Filterable-Gallery.js"></script>
 
     </body>
 

@@ -1,0 +1,52 @@
+.gallery-pt--body {
+  display:inline-block;
+  padding:0;
+  margin:0;
+}
+
+.gallery-pt--filter-container {
+  text-align:center;
+  padding:20px 0;
+  font-size:24px;
+  text-decoration:none;
+  /*color:#ccc;*/
+}
+
+.gallery-pt--filter-container a {
+  color:#ccc;
+  text-decoration:none;
+}
+
+.gallery-pt--filter-container .list-item {
+  padding:0;
+  margin:0;
+}
+
+.gallery-pt--filter-container li:after {
+  content:" / ";
+  color:#ddd;
+}
+
+.gallery-pt--filter-container li:last-child:after {
+  content:"";
+}
+
+.gallery-pt--filter-container li a:hover {
+  color:rgb(38,90,136);
+}
+
+.gallery-pt--filter-container li.active a {
+  color: lightblue;
+}
+
+.gallery-pt--body .thumbnail {
+  border:none;
+}
+
+.gallery-pt--body .item {
+  padding:0;
+}
+#gallery img{
+    width: 270px;
+    height: 210px;
+}

@@ -1,5 +1,8 @@
 
-import wrappers.DateUtil;
+import dao.RoomManager;
+import datasource.Datasource;
+
+
 
 
 
@@ -16,15 +19,8 @@ import wrappers.DateUtil;
  * @author Anirudh
  */
 public class Main {
-    public static void main(String[] args) {
-        
-        System.out.println(DateUtil.isBetween("2017-03-11","2017-03-15","2017-03-18")); // false
-        System.out.println(DateUtil.isBetween("2017-03-14","2017-03-15","2017-03-18")); // false
-        System.out.println(DateUtil.isBetween("2017-03-17","2017-03-15","2017-03-18")); // true
-        System.out.println(DateUtil.isBetween("2017-03-18","2017-03-15","2017-03-18")); // false
-        System.out.println(DateUtil.isBetween("2017-03-19","2017-03-15","2017-03-18")); // false
-        System.out.println(DateUtil.isBetween("2017-07-17","2017-03-15","2017-03-18")); // false
-        
-        
+    public static void main(String[] args) throws ClassNotFoundException {
+        RoomManager manage = new RoomManager(Datasource.getDatasource());
+        System.out.println(manage.get(1));
     }
 }

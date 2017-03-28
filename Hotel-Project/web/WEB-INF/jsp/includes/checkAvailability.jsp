@@ -115,8 +115,11 @@
    <th>Price</th> <th>TV</th> <th>WiFi</th><th>Fridge</th> <th>Maximum Guest's(Adults + Kids)</th></tr></thead> <tbody>";
 
         $.each(value, function (index, r) {
+            r.tv = (r.tv == true ? "Yes" : "No");
+            r.wiFi = (r.wiFi == true ? "Yes" : "No");
+            r.fridge = (r.fridge == true ? "Yes" : "No");
             print += "<tr> <td> " + r.roomNumber + "</td><td>" + r.packageID + "</td><td>" + r.price+ "</td><td>"
-            + r.tv + "</td><td>" + r.wiFi + "</td><td>" + r.fridge + "</td><td class='text-center'>" + r.guests + " <a onClick='Book()' href='' style='margin-left: 55px;'>Book</a></td><td></tr>";
+            + r.tv + "</td><td>" + r.wiFi + "</td><td>" + r.fridge + "</td><td>" + r.guests + " <a onClick='Book()' href='' style='margin-left: 65px;'>Book</a></td><td></tr>";
         });
         print += "</tbody> </table>";
         $('#result').html(print);

@@ -63,7 +63,7 @@
 
         </div>
         <div id="result">
-            RESULT
+
         </div>
     </div>
 
@@ -106,10 +106,10 @@
 
     function print2(value)
     {
-       
+
         $("#loader").hide();
-          
-           console.log(value);
+
+        console.log(value);
         var print = "";
         print += " <table class='table table-striped'> <thead><tr><th>Room Number</th><th>Package ID</th>\n\
    <th>Price</th> <th>TV</th> <th>WiFi</th><th>Fridge</th> <th>Maximum Guest's(Adults + Kids)</th></tr></thead> <tbody>";
@@ -118,13 +118,13 @@
             r.tv = (r.tv == true ? "Yes" : "No");
             r.wiFi = (r.wiFi == true ? "Yes" : "No");
             r.fridge = (r.fridge == true ? "Yes" : "No");
-            print += "<tr> <td> " + r.roomNumber + "</td><td>" + r.packageID + "</td><td>" + r.price+ "</td><td>"
-            + r.tv + "</td><td>" + r.wiFi + "</td><td>" + r.fridge + "</td><td>" + r.guests + " <a onClick='Book()' href='' style='margin-left: 65px;'>Book</a></td><td></tr>";
+            print += "<tr> <td> " + r.roomNumber + "</td><td>" + r.packageID + "</td><td>" + r.price + "</td><td>"
+                    + r.tv + "</td><td>" + r.wiFi + "</td><td>" + r.fridge + "</td><td>" + r.guests + " <a onClick='Book()' href='' style='margin-left: 65px;'>Book</a></td><td></tr>";
         });
         print += "</tbody> </table>";
         $('#result').html(print);
 
     }
-    
-    
+
+
 </script>

@@ -7,16 +7,16 @@ package com.hotelProject.controllers;
 
 import dao.BookingManager;
 import dao.UserManager;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 import datasource.Datasource;
 import java.util.List;
 import java.util.Map;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import wrappers.Search;
 import wrappers.Booking;
+import wrappers.Search;
 
 /**
  *
@@ -33,6 +33,7 @@ public class User {
      * Extract data about booking from "bookings" key Extract data about user
      * from "user" key
      *
+     * @param username
      * @return ModelAndView with bookings and user data
      */
     @RequestMapping(value = {"user"})
@@ -61,6 +62,9 @@ public class User {
         return mv;
     }
 
+    
+    
+    
     /**
      * This method will allow user to book particular Room from one date to
      * another date.

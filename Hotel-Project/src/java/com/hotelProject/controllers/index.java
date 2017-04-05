@@ -6,6 +6,7 @@ import datasource.Datasource;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import wrappers.Authenticate;
+import wrappers.Booking;
 import wrappers.DateUtil;
 import wrappers.Room;
 import wrappers.User;
@@ -108,45 +110,83 @@ public class index {
         return mv;
     }
 
-    @RequestMapping(value = {"availability"}, produces="application/json")
-    public @ResponseBody List<Room> getAvailable(@RequestParam("") Map<String, String> map) {
+    @RequestMapping(value = {"availability"}, produces = "application/json")
+    public @ResponseBody
+    List<Room> getAvailable(@RequestParam("") Map<String, String> map) {
         ObjectMapper mapper = new ObjectMapper();
-        if(map.get("checkin") == null ||
-                map.get("checkout") == null ||
-                map.get("guests") == null ||
-                map.get("checkin").isEmpty() ||
-                map.get("checkout").isEmpty() ||
-                map.get("guests").isEmpty())
-        {
+        if (map.get("checkin") == null
+                || map.get("checkout") == null
+                || map.get("guests") == null
+                || map.get("checkin").isEmpty()
+                || map.get("checkout").isEmpty()
+                || map.get("guests").isEmpty()) {
             return null;
-        }
-        else
-        {
+        } else {
             String checkin = DateUtil.parseToDbFormat(map.get("checkin"));
             String checkout = DateUtil.parseToDbFormat(map.get("checkout"));
             int guests = Integer.parseInt(map.get("guests"));
-            
-            try
-            {
+
+            try {
                 BookingManager rm = new BookingManager(Datasource.getDatasource());
                 List<Room> list = rm.getAvailableRoom(checkin, checkout, guests);
-                if(list == null || list.isEmpty())
-                {
-                   return null;
-                }
-                else
-                {
+                if (list == null || list.isEmpty()) {
+                    return null;
+                } else {
                     return list;
                 }
-            }
-            
-            catch(ClassNotFoundException ex)
-            {
+            } catch (ClassNotFoundException ex) {
                 System.out.println(ex);
                 return null;
             }
         }
-        
     }
-    
+
+    /**
+     * This method books room based on the room id from user and verifies
+     * certain details This will produce one of the following string results:
+     * LOGIN_REQUIRED: this will be produced if the request is recieved but not
+     * LOGIN_APPROVED_REDIRECT: to Info page with room number and a special note
+     * BOOKED_ROOM: to notify that room is booked!
+     * NOT_BOOKED: failed to book
+     *
+     * This method requires the following information:
+     * room_id, special_note, start_date, end_date
+     * @param session
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = {"book"}, method = RequestMethod.POST)
+    public @ResponseBody String book(HttpSession session, @RequestParam("") Map<String, String> map) {
+        if (session.getAttribute("user") == null) {
+            return "LOGIN_REQUIRED";
+        } else {
+            if(map.get("room_id") != null && map.get("special_note") != null)
+            {
+                try {
+                    BookingManager man = new BookingManager(Datasource.getDatasource());
+                    if(man.doBooking(new Booking(session.getAttribute("user").toString(), Integer.parseInt(map.get("room_id")), DateUtil.parseToDbFormat(map.get("start_date")), DateUtil.parseToDbFormat(map.get("end_date")), map.get("special_note"))))
+                    {
+                        return "BOOKED_ROOM";
+                    }
+                    else
+                    {
+                        return "NOT_BOOKED";
+                    }
+                } catch (ClassNotFoundException ex) {
+                    System.out.println(ex);
+                }
+                // book room
+                return "NOT_BOOKED";
+            }
+            else if(map.get("room_id") != null)
+            {
+                return "LOGIN_APPROVED_REDIRECT";
+            }
+            else
+            {
+                return "MISSING_REQUIRED_INFO";
+            }
+        }
+    }
+
 }

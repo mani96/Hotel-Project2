@@ -11,16 +11,16 @@ function Book(roomId){
    // alert("working" + roomId + checkin + checkout);
    alert("working " + roomId)
    $.ajax({
-     type: "GET",
+     type: "POST",
      contentType: "application/text",
      url: "book",
-     data: "room_id" + roomId,
+     data: "room_id=" + roomId,
      
      success: function(data){
-         alert(data);
+         alert("success "+data);
      },
      error: function(e){
-         alert(e);
+         alert("error"+e);
      }
    });
 }

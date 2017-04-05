@@ -25,7 +25,7 @@
 <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
       rel = "stylesheet">
 <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
+<script src = "${pageContext.request.contextPath}/assets/js/booking.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/homeStyle.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Filterable-Gallery.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">

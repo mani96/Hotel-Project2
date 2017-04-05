@@ -118,8 +118,8 @@
             r.tv = (r.tv == true ? "Yes" : "No");
             r.wiFi = (r.wiFi == true ? "Yes" : "No");
             r.fridge = (r.fridge == true ? "Yes" : "No");
-            print += "<tr> <td> " + r.roomNumber + "</td><td>" + r.packageID + "</td><td>" + r.price + "</td><td>"
-                    + r.tv + "</td><td>" + r.wiFi + "</td><td>" + r.fridge + "</td><td>" + r.guests + " <a onClick='Book()' href='' style='margin-left: 65px;'>Book</a></td><td></tr>";
+            print += "<tr id = "+r.roomNumber+"> <td> " + r.roomNumber + "</td><td>" + r.packageID + "</td><td>" + r.price + "</td><td>"
+                    + r.tv + "</td><td>" + r.wiFi + "</td><td>" + r.fridge + "</td><td>" + r.guests + " <a onClick='Book("+r.roomNumber+")' href='#"+(-1)+"' style='margin-left: 65px;'>Book</a></td><td></tr>";
         });
         print += "</tbody> </table>";
         $('#result').html(print);

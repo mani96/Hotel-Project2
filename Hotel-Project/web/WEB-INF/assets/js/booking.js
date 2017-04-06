@@ -9,12 +9,12 @@ function Book(roomId){
    // var checkin = $("#datepicker1").val();
    // var checkout = $("#datepicker2").val();
    // alert("working" + roomId + checkin + checkout);
-   alert("working " + roomId)
+  alert("working " + roomId)
    $.ajax({
-     type: "GET",
+     type: "POST",
      contentType: "application/text",
      url: "book",
-     data: "room_id" + roomId,
+     data: "room_id=" + roomId,
      
      success: function(data){
          alert("success "+data);
@@ -23,4 +23,6 @@ function Book(roomId){
          alert("error "+e);
      }
    });
+}
+
 }

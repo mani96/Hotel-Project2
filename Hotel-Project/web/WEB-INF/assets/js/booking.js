@@ -16,7 +16,12 @@ function Book(roomId){
      data: "room_id" + roomId,
      
      success: function(data){
-         alert(data);
+         $('.bookingResult').hide();
+         $("#bookResult"+roomId+"").show();
+         if(data == "LOGIN_REQUIRED"){
+         $("#bookResult"+roomId+"").html("<a href='#' data-toggle='modal' data-target='#login' style='color: red;'> *Login Required </a>");
+     }
+         
      },
      error: function(e){
          alert(e);

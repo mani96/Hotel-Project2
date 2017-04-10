@@ -19,6 +19,8 @@
         <%@include file="includes/navigation.jsp" %>
         <!------------login-form------------------>
         <%@include file="includes/Login.jsp" %>
+        
+         <%@include file="includes/ModalBooking.jsp" %>
         <!-----------------------------------------check form-------------------------------->
         <%@include file="includes/checkAvailability.jsp" %>
         <!---------------------------------Gallery + Map------------------------------------------------------>

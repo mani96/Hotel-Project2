@@ -72,7 +72,7 @@
      type: "POST",
      contentType: "application/text",
      url: "book",
-     data: "room_id=" + roomId + "&special_note='" + specialNote + "'&start_date=" + checkInDate2+"&end_date="+ checkOutDate2,
+     data: "room_id=" + roomId + "&special_note=" + specialNote + "&start_date=" + checkInDate2+"&end_date="+ checkOutDate2,
      
      success: function(data){
         alert(data);    

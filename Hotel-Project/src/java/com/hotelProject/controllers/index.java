@@ -146,30 +146,31 @@ public class index {
      * certain details This will produce one of the following string results:
      * LOGIN_REQUIRED: this will be produced if the request is recieved but not
      * LOGIN_APPROVED_REDIRECT: to Info page with room number and a special note
-     * BOOKED_ROOM: to notify that room is booked!
-     * NOT_BOOKED: failed to book
+     * BOOKED_ROOM: to notify that room is booked! NOT_BOOKED: failed to book
      *
-     * This method requires the following information:
-     * room_id, special_note, start_date, end_date
+     * This method requires the following information: room_id, special_note,
+     * start_date, end_date
+     *
      * @param session
      * @param map
      * @return
      */
     @RequestMapping(value = {"book"}, method = RequestMethod.POST)
-    public @ResponseBody String book(HttpSession session, @RequestParam("") Map<String, String> map) {
+    public @ResponseBody
+    String book(HttpSession session, @RequestParam("") Map<String, String> map) {
         if (session.getAttribute("user") == null) {
             return "LOGIN_REQUIRED";
         } else {
-            if(map.get("room_id") != null && map.get("special_note") != null)
-            {
+            // all the info available.
+            if (map.get("room_id") != null
+                    && map.get("start_date") != null
+                    && map.get("end_date") != null
+                    && map.get("special_note") != null) {
                 try {
                     BookingManager man = new BookingManager(Datasource.getDatasource());
-                    if(man.doBooking(new Booking(session.getAttribute("user").toString(), Integer.parseInt(map.get("room_id")), DateUtil.parseToDbFormat(map.get("start_date")), DateUtil.parseToDbFormat(map.get("end_date")), map.get("special_note"))))
-                    {
+                    if (man.doBooking(new Booking(session.getAttribute("user").toString(), Integer.parseInt(map.get("room_id")), DateUtil.parseToDbFormat(map.get("start_date")), DateUtil.parseToDbFormat(map.get("end_date")), map.get("special_note")))) {
                         return "BOOKED_ROOM";
-                    }
-                    else
-                    {
+                    } else {
                         return "NOT_BOOKED";
                     }
                 } catch (ClassNotFoundException ex) {
@@ -177,16 +178,13 @@ public class index {
                 }
                 // book room
                 return "NOT_BOOKED";
-            }
-            else if(map.get("room_id") != null)
-            {
-                return "LOGIN_APPROVED_REDIRECT";
-            }
-            else
-            {
-                return "MISSING_REQUIRED_INFO";
+            } else {
+                if (session.getAttribute("special_note") == null) {
+                    return "MISSING_REQUIRED_INFO";
+                } else {
+                    return "LOGIN_APPROVED_REDIRECT";
+                }
             }
         }
     }
-
 }

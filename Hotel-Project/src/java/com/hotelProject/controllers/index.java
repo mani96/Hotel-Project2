@@ -155,7 +155,7 @@ public class index {
      * @param map
      * @return
      */
-    @RequestMapping(value = {"book"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"book"})
     public @ResponseBody
     String book(HttpSession session, @RequestParam("") Map<String, String> map) {
         if (session.getAttribute("user") == null) {

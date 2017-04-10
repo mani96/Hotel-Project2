@@ -39,7 +39,7 @@
                         <label for="specialService" class="cols-sm-2 control-label">*Any especial services </label>
                         <div class="cols-sm-10">
                             <div class="input-group">
-                               <textarea rows="5" cols="50" id="specialService"> </textarea>
+                               <textarea rows="5" cols="56" id="specialService"> </textarea>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,6 @@
          processing()
     });
     function processing(){
-        
         var roomId = $("#roomNo").val();
         var specialNote = $("#specialService").val();
         var checkInDate2 = $("#checkInDate2").val();
@@ -69,12 +68,13 @@
             specialNote = " ";
         }
         $.ajax({
-     type: "POST",
+     type: "GET",
      contentType: "application/text",
      url: "book",
-     data: "room_id=" + roomId + "&special_note=" + specialNote + "&start_date=" + checkInDate2+"&end_date="+ checkOutDate2,
+     data: "room_id=" + roomId +  "&start_date=" + checkInDate2+"&end_date="+ checkOutDate2 + "&special_note=" + specialNote,
      
      success: function(data){
+         alert(specialNote);
         alert(data);    
          
      },
@@ -83,6 +83,6 @@
      }
    });
     }
-     $("#specialService").text(""); 
+    
             </script>
 

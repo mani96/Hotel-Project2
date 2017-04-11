@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,7 +112,6 @@ public class index {
     @RequestMapping(value = {"availability"}, produces = "application/json")
     public @ResponseBody
     List<Room> getAvailable(@RequestParam("") Map<String, String> map) {
-        ObjectMapper mapper = new ObjectMapper();
         if (map.get("checkin") == null
                 || map.get("checkout") == null
                 || map.get("guests") == null

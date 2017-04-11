@@ -4,14 +4,14 @@
     Author     : manvir
 --%>
 
-<form action="addRoom">
+<form action="" id="addingRooms" >
     <!--------------------ROOM NUMBER---------------------------------------->
     <div class="row pad">
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RoomNumber">Room Number<span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="RoomNumber"  name="RoomNumber" required="required" class="form-control col-md-7 col-xs-12">
+                <input type="number" id="Room_Number"  name="Room_Number" required="required" class="form-control col-md-7 col-xs-12">
             </div>
         </div></div> 
     <!-------------------------------PACKAGE ID------------------------------------------->
@@ -41,10 +41,10 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="radio">
                     <label>
-                        <input type="radio" checked="" value="true" id="Fridge" name="Fridge"> Yes
+                        <input type="radio" checked="" value="true" class="Fridge" name="Fridge"> Yes
                     </label>
                     <label>
-                        <input type="radio"  value="false" id="Fridge" name="Fridge">No
+                        <input type="radio"  value="false" class="Fridge" name="Fridge">No
                     </label>
                 </div>   
             </div>
@@ -56,10 +56,10 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="radio">
                     <label>
-                        <input type="radio" checked="" value="true" id="wiFi" name="WiFi"> Yes
+                        <input type="radio" checked="" value="true" class="WiFi" name="WiFi"> Yes
                     </label>
                     <label>
-                        <input type="radio"  value="false" id="wiFi" name="WiFi">No
+                        <input type="radio"  value="false" class="WiFi" name="WiFi">No
                     </label>
                 </div>   
             </div>
@@ -71,15 +71,15 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="radio">
                     <label>
-                        <input type="radio" checked="" value="true" id="TV" name="TV"> Yes
+                        <input type="radio" checked="" value="true" class="TV" name="TV"> Yes
                     </label>
                     <label>
-                        <input type="radio"  value="false" id="TV" name="TV">No
+                        <input type="radio"  value="false" class="TV" name="TV">No
                     </label>
                 </div>   
             </div>
         </div></div>
-    <!-------------------------------PACKAGE ID------------------------------------------->
+    <!-------------------------------PRICE------------------------------------------->
     <div class="row pad">
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">Price<span class="required">*</span>
@@ -89,11 +89,46 @@
             </div>
         </div></div>
     <!---------------------------------------SUBMIT------------------------------------------------>
+    <div id="roomResult" style="margin-bottom: 10px"><img src="assets/img/ajax-loader.gif"/></div>
     <div class="row pad">
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="reset" class="btn btn-warning">Reset</button>
         </div></div>  
 
-
 </form>
+<script>
+   
+   $("#addingRooms").submit(function(event){
+       event.preventDefault();
+       roomProcessing();
+   });
+    function roomProcessing(){
+     $("#roomResult").show();  
+     $("#roomResult").html("<img src = 'assets/img/ajax-loader.gif'/>");
+     var RoomNumber = $("#Room_Number").val();
+     var Fridge = $(".Fridge:checked").val();
+     var TV = $(".TV:checked").val();
+     var WiFi = $(".WiFi:checked").val();
+     var price = $("#price").val();
+     var roomType = $("#roomType").val();
+     var packageId = $("#packageId").val();
+     
+     $.ajax({
+         type: "GET",
+         contentType: "application/text",
+         url : "addRoom",
+         data : "RoomNumber=" + RoomNumber + "&Fridge=" + Fridge + "&TV="+TV+"&WiFi="+WiFi+"&price="+price+"&roomType="
+         +roomType + "&packageId="+packageId,
+     success: function(data){
+        $("#roomResult").html("<h3 style=color:#265a88> " + data + "</h3>");
+        allrooms();
+     },
+      error: function(e){
+         alert(e);
+     }
+     });
+        
+    }
+    </script>
+    

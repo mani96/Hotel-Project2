@@ -7,11 +7,8 @@ package com.hotelProject.controllers;
 
 import dao.RoomManager;
 import datasource.Datasource;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,39 +58,41 @@ public class Admin {
     }
     
     @RequestMapping(value = {"getAllRooms"}, method = {RequestMethod.GET}, produces="application/json")
-    public @ResponseBody String getAllRooms()
+    public @ResponseBody List<Room> getAllRooms()
     {
-        ObjectMapper mapper = new ObjectMapper();
         try {
             RoomManager rooms = new RoomManager(Datasource.getDatasource());
-            return mapper.writeValueAsString(rooms.list());
-        } catch (IOException | ClassNotFoundException e) {
+            return rooms.list();
+        } catch (ClassNotFoundException e) {
             return null;
         }
     }
     
     @RequestMapping(value = {"deleteRoom"}, method = {RequestMethod.GET})
-    public ModelAndView deleteRooms(@RequestParam("roomNumber") int id) {
+    public @ResponseBody String deleteRooms(@RequestParam("roomNumber") int id) {
         // add room to database please make sure the data is correct and redirect accordingly
-        ModelAndView mv = new ModelAndView(new RedirectView("admin"));
+        //ModelAndView mv = new ModelAndView(new RedirectView("admin"));
+        String result ="";
         try {
             RoomManager rooms = new RoomManager(Datasource.getDatasource());
             if (rooms.delete(id)) {
-
-                mv.addObject("status", "SUCCESS");
-                mv.addObject("reason", "Room is deleted successfully");
+          
+                result =  "Room is deleted successfully";
+               // mv.addObject("status", "SUCCESS");
+               // mv.addObject("reason", "Room is deleted successfully");
             } else {
-
-                mv.addObject("status", "FAILED");
-                mv.addObject("reason", "Room could not be delted. Try again.");
+                result = "FAILED: Room could not be delted. Try again";
+               // mv.addObject("status", "FAILED");
+               // mv.addObject("reason", "Room could not be delted. Try again.");
             }
 
         } catch (ClassNotFoundException e) {
-            mv.addObject("status", "FAILED");
-            mv.addObject("reason", "Database went wrong. Please try agian");
+            result = "FAILED: Database went wrong. Please try agian";
+           // mv.addObject("status", "FAILED");
+           // mv.addObject("reason", "Database went wrong. Please try agian");
         }
 
-        return mv;
+        return result;
     }
 
 //    @RequestMapping(value = {"addRoom", "editRoom"}, method = {RequestMethod.GET})

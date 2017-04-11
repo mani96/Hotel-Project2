@@ -19,7 +19,18 @@
                 <li role="presentation"><a href="#">About</a></li>
                 <li role="presentation"><a href="#">Contact</a></li>
                 <li role="presentation"><a href="#">Registration</a></li>
-                <li role="presentation"><a href="#" data-toggle="modal"   data-target="#login">Login</a></li>
+                
+
+                <c:if test="${sessionScope.user == null}">
+                    <li role="presentation"><a href="#" data-toggle="modal"   data-target="#login">Login</a></li>
+                </c:if>
+                
+                    <c:if test="${sessionScope.user != null}">
+                        <li role="presentation"><a href="logout">Logout</a></li>
+                        <c:if test="${sessionScope.user.isAdmin()}">
+                            <!--<li role="presentation"><a href="admin">Admin Panel</a></li>-->
+                        </c:if>
+                    </c:if>
             </ul>
         </div>
     </div>

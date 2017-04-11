@@ -7,11 +7,8 @@ package com.hotelProject.controllers;
 
 import dao.RoomManager;
 import datasource.Datasource;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,13 +58,12 @@ public class Admin {
     }
     
     @RequestMapping(value = {"getAllRooms"}, method = {RequestMethod.GET}, produces="application/json")
-    public @ResponseBody String getAllRooms()
+    public @ResponseBody List<Room> getAllRooms()
     {
-        ObjectMapper mapper = new ObjectMapper();
         try {
             RoomManager rooms = new RoomManager(Datasource.getDatasource());
-            return mapper.writeValueAsString(rooms.list());
-        } catch (IOException | ClassNotFoundException e) {
+            return rooms.list();
+        } catch (ClassNotFoundException e) {
             return null;
         }
     }

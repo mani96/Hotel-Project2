@@ -46,6 +46,12 @@ public class Admin {
         return mv;
     }
 
+    @RequestMapping("redirectAdmin")
+    public ModelAndView redirect()
+    {
+        return new ModelAndView("admin");
+    }
+    
     @RequestMapping(value = {"addRoom"})
     public ModelAndView addRooms(@RequestParam("") Map<String, String> values) {
         ModelAndView mv = new ModelAndView(new RedirectView("index"));

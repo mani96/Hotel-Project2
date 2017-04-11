@@ -28,7 +28,7 @@
                     <c:if test="${sessionScope.user != null}">
                         <li role="presentation"><a href="logout">Logout</a></li>
                         <c:if test="${sessionScope.user.isAdmin()}">
-                            <!--<li role="presentation"><a href="admin">Admin Panel</a></li>-->
+                            <li role="presentation"><a href="Admin">Access Admin Panel - ${sessionScope.user.getFirstName()}</a></li>
                         </c:if>
                     </c:if>
             </ul>

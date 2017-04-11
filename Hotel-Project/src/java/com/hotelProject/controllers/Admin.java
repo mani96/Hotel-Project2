@@ -5,7 +5,6 @@
  */
 package com.hotelProject.controllers;
 
-import dao.BookingManager;
 import dao.RoomManager;
 import datasource.Datasource;
 import java.util.Map;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import wrappers.Room;
@@ -33,7 +33,7 @@ public class Admin {
     }
     
     @RequestMapping(value = {"addRoom"})
-    public ModelAndView addRooms(@RequestParam("") Map<String, String> values) {
+    public @ResponseBody String addRooms(@RequestParam("") Map<String, String> values) {
         ModelAndView mv = new ModelAndView(new RedirectView("index"));
         Room room = new Room();
         room.setRoomNumber(Integer.parseInt(values.get("RoomNumber")));
@@ -45,20 +45,15 @@ public class Admin {
         try {
             RoomManager rooms = new RoomManager(Datasource.getDatasource());
             if (rooms.saveOrUpdate(room)) {
-
-                mv.addObject("status", "SUCCESS");
-                mv.addObject("reason", "Room is saved successfully");
+                return "SUCCESS:Room is saved successfully!";
             } else {
-
-                mv.addObject("status", "FAILED");
-                mv.addObject("reason", "Room could not be saved. Try again.");
+                return "FAILED:Room could not be saved. Try again.";
             }
 
         } catch (ClassNotFoundException e) {
-            mv.addObject("status", "FAILED");
-            mv.addObject("reason", "Database went wrong. Please try agian");
+            return "FAILED:Something went wrong! Try again!";
+           
         }
-        return mv;
     }
 
     @RequestMapping(value = {"deleteRoom"}, method = {RequestMethod.GET})
@@ -88,7 +83,6 @@ public class Admin {
 //    @RequestMapping(value = {"addRoom", "editRoom"}, method = {RequestMethod.GET})
     public ModelAndView getReservation(@ModelAttribute("newWrapper") String data) {
         // get the information and store it in the wrapper class and finally give the right result based on the search!
-
         return null;
     }
 

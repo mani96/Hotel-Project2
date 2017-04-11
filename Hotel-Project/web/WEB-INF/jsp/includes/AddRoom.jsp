@@ -4,14 +4,14 @@
     Author     : manvir
 --%>
 
-<form action="addRoom">
+<form action="" id="addingRooms" >
     <!--------------------ROOM NUMBER---------------------------------------->
     <div class="row pad">
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="RoomNumber">Room Number<span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="RoomNumber"  name="RoomNumber" required="required" class="form-control col-md-7 col-xs-12">
+                <input type="number" id="Room_Number"  name="Room_Number" required="required" class="form-control col-md-7 col-xs-12">
             </div>
         </div></div> 
     <!-------------------------------PACKAGE ID------------------------------------------->
@@ -56,10 +56,10 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="radio">
                     <label>
-                        <input type="radio" checked="" value="true" id="wiFi" name="WiFi"> Yes
+                        <input type="radio" checked="" value="true" id="WiFi" name="WiFi"> Yes
                     </label>
                     <label>
-                        <input type="radio"  value="false" id="wiFi" name="WiFi">No
+                        <input type="radio"  value="false" id="WiFi" name="WiFi">No
                     </label>
                 </div>   
             </div>
@@ -79,7 +79,7 @@
                 </div>   
             </div>
         </div></div>
-    <!-------------------------------PACKAGE ID------------------------------------------->
+    <!-------------------------------PRICE------------------------------------------->
     <div class="row pad">
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">Price<span class="required">*</span>
@@ -89,11 +89,43 @@
             </div>
         </div></div>
     <!---------------------------------------SUBMIT------------------------------------------------>
+    <div id="roomResult"></div>
     <div class="row pad">
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="reset" class="btn btn-warning">Reset</button>
         </div></div>  
 
-
 </form>
+<script>
+   $("#addingRooms").submit(function(event){
+       event.preventDefault();
+       roomProcessing();
+   });
+    function roomProcessing(){
+        $("#roomResult").empty();
+     var RoomNumber = $("#Room_Number").val();
+     var Fridge = $("#Fridge").val();
+     var TV = $("#TV").val();
+     var WiFi = $("#WiFi").val();
+     var price = $("#price").val();
+     var roomType = $("#roomType").val();
+     var packageId = $("#packageId").val();
+     
+     $.ajax({
+         type: "GET",
+         contentType: "application/text",
+         url : "addRoom",
+         data : "RoomNumber=" + RoomNumber + "&Fridge=" + Fridge + "&TV="+TV+"&WiFi="+WiFi+"&price="+price+"&roomType="
+         +roomType + "&packageId="+packageId,
+     success: function(data){
+        $("#roomResult").html("<h3 style=color:#265a88> " + data + "</h3>");
+     },
+      error: function(e){
+         alert(e);
+     }
+     });
+        
+    }
+    </script>
+    

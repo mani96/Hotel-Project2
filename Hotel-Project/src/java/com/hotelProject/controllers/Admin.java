@@ -26,26 +26,6 @@ import wrappers.Room;
 @Controller
 public class Admin {
 
-    @RequestMapping(value = {"admin"})
-    public ModelAndView AdminController() {
-        ModelAndView mv = new ModelAndView("admin");
-        try {
-            //get all rooms and their specifications
-            RoomManager rooms = new RoomManager(Datasource.getDatasource());
-            //get all bookings
-            BookingManager bookings = new BookingManager(Datasource.getDatasource());
-            //add bookings to ModelAndView
-            mv.addObject("bookings", bookings.list());
-            //add rooms to ModelAndView 
-            mv.addObject("rooms", rooms.list());
-        } catch (ClassNotFoundException e) {
-            mv.addObject("rooms", null);
-            mv.addObject("bookings", null);
-        }
-        //return ModelAndView
-        return mv;
-    }
-
     @RequestMapping("redirectAdmin")
     public ModelAndView redirect()
     {

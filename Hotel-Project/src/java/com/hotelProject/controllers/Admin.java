@@ -27,8 +27,8 @@ import wrappers.Room;
 public class Admin {
 
     @RequestMapping(value = {"admin"})
-    public ModelAndView AdminController(ModelAndView mv) {
-        mv = new ModelAndView(new RedirectView("admin"));
+    public ModelAndView AdminController() {
+        ModelAndView mv = new ModelAndView("admin");
         try {
             //get all rooms and their specifications
             RoomManager rooms = new RoomManager(Datasource.getDatasource());

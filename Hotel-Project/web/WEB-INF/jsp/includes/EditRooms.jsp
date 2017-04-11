@@ -49,10 +49,10 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="radio">
                     <label>
-                        <input type="radio" checked="" value="true" id="Fridge_u" name="Fridge"> Yes
+                        <input type="radio" checked="" value="true" class="Fridge_u" name="Fridge"> Yes
                     </label>
                     <label>
-                        <input type="radio"  value="false" id="Fridge_u" name="Fridge">No
+                        <input type="radio"  value="false" class="Fridge_u" name="Fridge">No
                     </label>
                 </div>   
             </div>
@@ -64,10 +64,10 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="radio">
                     <label>
-                        <input type="radio" checked="" value="true" id="WiFi_u" name="WiFi"> Yes
+                        <input type="radio" checked="" value="true" class="WiFi_u" name="WiFi"> Yes
                     </label>
                     <label>
-                        <input type="radio"  value="false" id="WiFi_u" name="WiFi">No
+                        <input type="radio"  value="false" class="WiFi_u" name="WiFi">No
                     </label>
                 </div>   
             </div>
@@ -79,10 +79,10 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="radio">
                     <label>
-                        <input type="radio" checked="" value="true" id="TV_u" name="TV"> Yes
+                        <input type="radio" checked="" value="true" class="TV_u" name="TV"> Yes
                     </label>
                     <label>
-                        <input type="radio"  value="false" id="TV_u" name="TV">No
+                        <input type="radio"  value="false" class="TV_u" name="TV">No
                     </label>
                 </div>   
             </div>
@@ -123,9 +123,9 @@
      $("#roomResult_u").show();  
      $("#roomResult_u").html("<img src = 'assets/img/ajax-loader.gif'/>");
      var RoomNumber = $("#Room_Number").val();
-     var Fridge = $("#Fridge_u").val();
-     var TV = $("#TV_u").val();
-     var WiFi = $("#WiFi_u").val();
+     var Fridge = $(".Fridge_u:checked").val();
+     var TV = $(".TV_u:checked").val();
+     var WiFi = $(".WiFi_u:checked").val();
      var price = $("#price_u").val();
      var roomType = $("#roomType_u").val();
      var packageId = $("#packageId_u").val();
@@ -137,8 +137,10 @@
          data : "RoomNumber=" + RoomNumber + "&Fridge=" + Fridge + "&TV="+TV+"&WiFi="+WiFi+"&price="+price+"&roomType="
          +roomType + "&packageId="+packageId,
      success: function(data){
+        
         $("#roomResult_u").html("<h3 style=color:#265a88> " + data + "</h3>");
          $("#roomResult_u").hide();
+        allrooms();
      },
       error: function(e){
          alert(e);

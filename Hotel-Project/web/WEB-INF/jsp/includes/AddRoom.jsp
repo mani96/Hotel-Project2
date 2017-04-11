@@ -41,10 +41,10 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="radio">
                     <label>
-                        <input type="radio" checked="" value="true" id="Fridge" name="Fridge"> Yes
+                        <input type="radio" checked="" value="true" class="Fridge" name="Fridge"> Yes
                     </label>
                     <label>
-                        <input type="radio"  value="false" id="Fridge" name="Fridge">No
+                        <input type="radio"  value="false" class="Fridge" name="Fridge">No
                     </label>
                 </div>   
             </div>
@@ -56,10 +56,10 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="radio">
                     <label>
-                        <input type="radio" checked="" value="true" id="WiFi" name="WiFi"> Yes
+                        <input type="radio" checked="" value="true" class="WiFi" name="WiFi"> Yes
                     </label>
                     <label>
-                        <input type="radio"  value="false" id="WiFi" name="WiFi">No
+                        <input type="radio"  value="false" class="WiFi" name="WiFi">No
                     </label>
                 </div>   
             </div>
@@ -71,10 +71,10 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="radio">
                     <label>
-                        <input type="radio" checked="" value="true" id="TV" name="TV"> Yes
+                        <input type="radio" checked="" value="true" class="TV" name="TV"> Yes
                     </label>
                     <label>
-                        <input type="radio"  value="false" id="TV" name="TV">No
+                        <input type="radio"  value="false" class="TV" name="TV">No
                     </label>
                 </div>   
             </div>
@@ -107,9 +107,9 @@
      $("#roomResult").show();  
      $("#roomResult").html("<img src = 'assets/img/ajax-loader.gif'/>");
      var RoomNumber = $("#Room_Number").val();
-     var Fridge = $("#Fridge").val();
-     var TV = $("#TV").val();
-     var WiFi = $("#WiFi").val();
+     var Fridge = $(".Fridge:checked").val();
+     var TV = $(".TV:checked").val();
+     var WiFi = $(".WiFi:checked").val();
      var price = $("#price").val();
      var roomType = $("#roomType").val();
      var packageId = $("#packageId").val();

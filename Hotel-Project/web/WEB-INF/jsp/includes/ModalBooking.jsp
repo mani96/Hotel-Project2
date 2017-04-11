@@ -76,10 +76,12 @@
      success: function(data){
         if(data == "BOOKED_ROOM"){
             data = "Room Booked Successfully";
-            $("#result2").html('<h3 style="color: ">' + data + '</h3>')
+            
+            $("#result2").html('<h3 style="color: #265a88">' + data + '</h3>')
            }
+           else{
         $("#result2").html('<h3 style="color: red;">*' + data + '</h3>')
-         
+    }
      },
      error: function(e){
          alert(e);

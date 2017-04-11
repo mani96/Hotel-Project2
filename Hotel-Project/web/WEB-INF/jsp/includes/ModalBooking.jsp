@@ -8,8 +8,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                <h4 class="modal-title custom_align" id="Heading">${resname}</h4> 
+             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title custom_align" id="Heading">Booking Confirmation</h4> 
             </div>
             <div class="main-login main-center" style="width: 60%; margin: auto">
                 <form id="finalBooking" name = "finalBooking" class="form-horizontal"  method="post">
@@ -39,7 +39,7 @@
                         <label for="specialService" class="cols-sm-2 control-label">*Any especial services </label>
                         <div class="cols-sm-10">
                             <div class="input-group">
-                               <textarea rows="5" cols="50" id="specialService"> </textarea>
+                               <textarea rows="5" cols="56" id="specialService"> </textarea>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         <button class="btn btn-primary btn-block" type="submit" onclick="test3()">Book</button>
                     </div>
                 </form>
-
+                <diiv id="result2"></diiv>
             </div>
             
         </div>
@@ -60,7 +60,6 @@
          processing()
     });
     function processing(){
-        
         var roomId = $("#roomNo").val();
         var specialNote = $("#specialService").val();
         var checkInDate2 = $("#checkInDate2").val();
@@ -69,20 +68,26 @@
             specialNote = " ";
         }
         $.ajax({
-     type: "POST",
+     type: "GET",
      contentType: "application/text",
      url: "book",
-     data: "room_id=" + roomId + "&special_note=" + specialNote + "&start_date=" + checkInDate2+"&end_date="+ checkOutDate2,
+     data: "room_id=" + roomId +  "&start_date=" + checkInDate2+"&end_date="+ checkOutDate2 + "&special_note=" + specialNote,
      
      success: function(data){
-        alert(data);    
-         
+        if(data == "BOOKED_ROOM"){
+            data = "Room Booked Successfully";
+            
+            $("#result2").html('<h3 style="color: #265a88">' + data + '</h3>')
+           }
+           else{
+        $("#result2").html('<h3 style="color: red;">*' + data + '</h3>')
+    }
      },
      error: function(e){
          alert(e);
      }
    });
     }
-     $("#specialService").text(""); 
+    
             </script>
 

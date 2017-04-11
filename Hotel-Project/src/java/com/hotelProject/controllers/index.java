@@ -168,7 +168,7 @@ public class index {
                     && map.get("special_note") != null) {
                 try {
                     BookingManager man = new BookingManager(Datasource.getDatasource());
-                    if (man.doBooking(new Booking(session.getAttribute("user").toString(), Integer.parseInt(map.get("room_id")), DateUtil.parseToDbFormat(map.get("start_date")), DateUtil.parseToDbFormat(map.get("end_date")), map.get("special_note")))) {
+                    if (man.doBooking(new Booking(((User)session.getAttribute("user")).getUsername(), Integer.parseInt(map.get("room_id")), DateUtil.parseToDbFormat(map.get("start_date")), DateUtil.parseToDbFormat(map.get("end_date")), map.get("special_note")))) {
                         return "BOOKED_ROOM";
                     } else {
                         return "NOT_BOOKED";

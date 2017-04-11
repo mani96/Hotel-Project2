@@ -6,6 +6,7 @@
 package com.hotelProject.controllers;
 
 import dao.RoomManager;
+import dao.UserManager;
 import datasource.Datasource;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import wrappers.Client;
 import wrappers.Room;
+import wrappers.User;
 
 /**
  *
@@ -28,13 +31,13 @@ import wrappers.Room;
 public class Admin {
 
     @RequestMapping("redirectAdmin")
-    public ModelAndView redirect()
-    {
+    public ModelAndView redirect() {
         return new ModelAndView("admin");
     }
-    
+
     @RequestMapping(value = {"addRoom"})
-    public @ResponseBody String addRooms(@RequestParam("") Map<String, String> values) {
+    public @ResponseBody
+    String addRooms(@RequestParam("") Map<String, String> values) {
         ModelAndView mv = new ModelAndView(new RedirectView("index"));
         Room room = new Room();
         room.setRoomNumber(Integer.parseInt(values.get("RoomNumber")));
@@ -53,13 +56,55 @@ public class Admin {
 
         } catch (ClassNotFoundException e) {
             return "FAILED:Something went wrong! Try again!";
-           
+
         }
     }
-    
-    @RequestMapping(value = {"getAllRooms"}, method = {RequestMethod.GET}, produces="application/json")
-    public @ResponseBody List<Room> getAllRooms()
-    {
+    /**
+     * this method will add user
+     * send request on addUser
+     * @param values
+     * @return 
+     */
+    @RequestMapping(value = {"addUser"})
+    public @ResponseBody
+    String addUsers(@RequestParam("") Map<String, String> values) {
+        ModelAndView mv = new ModelAndView(new RedirectView("index"));
+        User user = null;
+
+        if (values.get("guest").equalsIgnoreCase("Admin")) {
+            user = new wrappers.Admin();
+            user.setAdmin(true);
+        } else if (values.get("guest").equalsIgnoreCase("Client")) {
+            user = new Client();
+            user.setAdmin(false);
+        }
+        if (user == null) {
+            return "FAILED:User could not be added";
+        }
+        user.setFirstName(values.get("firstname"));
+        user.setLastName(values.get("lastname"));
+        user.setPassword(values.get("password"));
+        user.setPhone(values.get("phone"));
+        user.setUsername(values.get("username"));
+        
+        
+        try {
+            UserManager users = new UserManager(Datasource.getDatasource());
+            if (users.add(user)) {
+                return "SUCCESS:User is added successfully!";
+            } else {
+                return "FAILED:User could not be added. Try again.";
+            }
+
+        } catch (ClassNotFoundException e) {
+            return "FAILED:Something went wrong! Try again!";
+
+        }
+    }
+
+    @RequestMapping(value = {"getAllRooms"}, method = {RequestMethod.GET}, produces = "application/json")
+    public @ResponseBody
+    List<Room> getAllRooms() {
         try {
             RoomManager rooms = new RoomManager(Datasource.getDatasource());
             return rooms.list();
@@ -67,29 +112,30 @@ public class Admin {
             return null;
         }
     }
-    
+
     @RequestMapping(value = {"deleteRoom"}, method = {RequestMethod.GET})
-    public @ResponseBody String deleteRooms(@RequestParam("roomNumber") int id) {
+    public @ResponseBody
+    String deleteRooms(@RequestParam("roomNumber") int id) {
         // add room to database please make sure the data is correct and redirect accordingly
         //ModelAndView mv = new ModelAndView(new RedirectView("admin"));
-        String result ="";
+        String result = "";
         try {
             RoomManager rooms = new RoomManager(Datasource.getDatasource());
             if (rooms.delete(id)) {
-          
-                result =  "Room is deleted successfully";
-               // mv.addObject("status", "SUCCESS");
-               // mv.addObject("reason", "Room is deleted successfully");
+
+                result = "Room is deleted successfully";
+                // mv.addObject("status", "SUCCESS");
+                // mv.addObject("reason", "Room is deleted successfully");
             } else {
                 result = "FAILED: Room could not be delted. Try again";
-               // mv.addObject("status", "FAILED");
-               // mv.addObject("reason", "Room could not be delted. Try again.");
+                // mv.addObject("status", "FAILED");
+                // mv.addObject("reason", "Room could not be delted. Try again.");
             }
 
         } catch (ClassNotFoundException e) {
             result = "FAILED: Database went wrong. Please try agian";
-           // mv.addObject("status", "FAILED");
-           // mv.addObject("reason", "Database went wrong. Please try agian");
+            // mv.addObject("status", "FAILED");
+            // mv.addObject("reason", "Database went wrong. Please try agian");
         }
 
         return result;

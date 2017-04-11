@@ -78,6 +78,7 @@
             data = "Room Booked Successfully";
             
             $("#result2").html('<h3 style="color: #265a88">' + data + '</h3>')
+            test();
            }
            else{
         $("#result2").html('<h3 style="color: red;">*' + data + '</h3>')

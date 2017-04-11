@@ -142,7 +142,7 @@
         allrooms();
      },
       error: function(e){
-         alert(e);
+         alert("error: " + e);
           $("#roomResult_u").hide();
      }
      });

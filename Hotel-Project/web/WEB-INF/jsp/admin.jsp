@@ -75,6 +75,7 @@
         $("#roomResult").hide();
         $("#roomResult_u").hide();
          $("#roomResult_d").hide();
+         $("#addUserResult").hide();
         allrooms();
     });
     function allrooms(){

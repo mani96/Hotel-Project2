@@ -65,7 +65,7 @@ public class Admin {
      * @param values
      * @return 
      */
-    @RequestMapping(value = {"addUser"})
+    @RequestMapping(value = {"addUser"}, method = {RequestMethod.GET})
     public @ResponseBody
     String addUsers(@RequestParam("") Map<String, String> values) {
         ModelAndView mv = new ModelAndView(new RedirectView("index"));

@@ -143,7 +143,7 @@
      },
       error: function(e){
          alert("error: " + e);
-          $("#roomResult_u").hide();
+         $("#roomResult_u").hide();
      }
      });
         

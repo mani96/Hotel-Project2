@@ -89,7 +89,7 @@
             </div>
         </div></div>
     <!---------------------------------------SUBMIT------------------------------------------------>
-    <div id="roomResult"></div>
+    <div id="roomResult" style="margin-bottom: 10px"><img src="assets/img/ajax-loader.gif"/></div>
     <div class="row pad">
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -98,12 +98,14 @@
 
 </form>
 <script>
+   
    $("#addingRooms").submit(function(event){
        event.preventDefault();
        roomProcessing();
    });
     function roomProcessing(){
-        $("#roomResult").empty();
+     $("#roomResult").show();  
+     $("#roomResult").html("<img src = 'assets/img/ajax-loader.gif'/>");
      var RoomNumber = $("#Room_Number").val();
      var Fridge = $("#Fridge").val();
      var TV = $("#TV").val();
@@ -120,6 +122,7 @@
          +roomType + "&packageId="+packageId,
      success: function(data){
         $("#roomResult").html("<h3 style=color:#265a88> " + data + "</h3>");
+        allrooms();
      },
       error: function(e){
          alert(e);

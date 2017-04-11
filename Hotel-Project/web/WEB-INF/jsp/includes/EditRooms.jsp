@@ -139,7 +139,6 @@
      success: function(data){
         
         $("#roomResult_u").html("<h3 style=color:#265a88> " + data + "</h3>");
-         $("#roomResult_u").hide();
         allrooms();
      },
       error: function(e){

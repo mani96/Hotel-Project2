@@ -72,7 +72,7 @@ public class Admin {
     public @ResponseBody String deleteRooms(@RequestParam("roomNumber") int id) {
         // add room to database please make sure the data is correct and redirect accordingly
         //ModelAndView mv = new ModelAndView(new RedirectView("admin"));
-        String result;
+        String result ="";
         try {
             RoomManager rooms = new RoomManager(Datasource.getDatasource());
             if (rooms.delete(id)) {

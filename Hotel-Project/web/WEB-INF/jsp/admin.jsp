@@ -56,6 +56,7 @@
             <!-------------------footer------------------------>
             <%@include file="includes/Login.jsp" %>
             <%@include file="includes/EditRooms.jsp" %>
+            
             <div class="footer-clean">
                 <footer>
                     <%@include file="includes/Footer.jsp" %>
@@ -84,15 +85,15 @@
             dataType: 'json',
              
             success: function(data){
-                 alert(data);
+                 //alert(data);
                  print3(data);
              },
              error: function(data){
                  alert(data);
              }
-            
         });
     }
+    
     function print3(value)
     {
         console.log(value);
@@ -116,24 +117,15 @@
     //alert(roomNo);
     $("#Room_Number_u").val(roomNo);
      $("#editRoomModal").modal('show');
-     
-     
-    //------------DELETE ROOM ----------------------------------------------------------------------// 
+    $("#roomResult_u").empty();
     }
+    //------------DELETE ROOM ----------------------------------------------------------------------// 
     function deleteRoom(roomNumber){
         $("#Room_Number_d").val(roomNumber);
         $("#deleteRoomModal").modal('show');
     }
-    
-    $("#deleteRoom").submit(function(event){
-        alert("ddd");
-       event.preventDefault();
-       $("#roomResult_d").empty();
-       $("#roomResult_d").hide();
-       deleteRoomConformation();
-    });
-    
-    function deleteRoomConformation(){
+      
+    function deleteRoomConfirmation(){
         var roomNumber = $("#Room_Number_d").val();
         $("#roomResult_d").show();  
      $("#roomResult_d").html("<img src = 'assets/img/ajax-loader.gif'/>");
@@ -146,7 +138,7 @@
              success: function(data){
                  $("#roomResult_d").html("<h3 style=color:#265a88> " + data + "</h3>")
                 allrooms(); 
-                 $("#roomResult_d").hide();
+               
              },
              error: function(data){
               alert(data);
@@ -166,7 +158,7 @@
             </div>
             <div class="main-login main-center" id="loginbox"style="width: 60%; margin: auto; margin-top: 30px;">
        <!-------------------------Edit rooms------------------------------------------------------>
-       <form action="" id="deleteRoom" >
+      
            <div class="row">
                <div class="col-md-8">Are you Sure you want to delete this room: </div>
                <div class="col-md-4"><input type="number" id="Room_Number_d"  name="Room_Number" required="required" class="form-control col-md-7 col-xs-12" readonly></div>
@@ -174,10 +166,10 @@
             <div id="roomResult_d" style="margin-bottom: 10px"><img src="assets/img/ajax-loader.gif"/></div>
     <div class="row pad">
         <div class="form-group" style="margin-top: 10px;">
-            <button type="submit" class="btn btn-primary">DELETE</button>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">Cancel</button>
+            <button type="button" onclick="deleteRoomConfirmation()" class="btn btn-primary">DELETE</button>
+            <button type="button"  data-dismiss="modal" aria-hidden="true" class="btn btn-warning" style="margin-left: 20px; ">Cancel</button>
         </div></div> 
-        </form>
+      
 
        
        <!--------------------------------------------------------------------------------->
@@ -187,5 +179,45 @@
         </div>
     </div>
 </div>
+        
+<!--       <script>      
+    //------------DELETE ROOM ----------------------------------------------------------------------// 
+    }
+    function deleteRoom(roomNumber){
+        $("#Room_Number_d").val(roomNumber);
+        $("#deleteRoomModal").modal('show');
+    }
+    
+    $("#deleteRoom_d").submit(function(event){
+        alert("ddd");
+//       event.preventDefault();
+//       $("#roomResult_d").empty();
+//       $("#roomResult_d").hide();
+//       deleteRoomConformation();
+    });
+    
+    function deleteRoomConfirmation(){
+        alert("dd");
+//        var roomNumber = $("#Room_Number_d").val();
+//        $("#roomResult_d").show();  
+//     $("#roomResult_d").html("<img src = 'assets/img/ajax-loader.gif'/>");
+      //  alert(roomNumber);
+//        $.ajax({
+//            
+//            type: "GET",
+//            url: "deleteRoom",
+//            data: 'roomNumber=' + roomNumber,
+//             success: function(data){
+//                 $("#roomResult_d").html("<h3 style=color:#265a88> " + data + "</h3>")
+//                allrooms(); 
+//                 $("#roomResult_d").hide();
+//             },
+//             error: function(data){
+//              alert(data);
+//               $("#roomResult_d").hide();
+//             }
+//        });
+    }
+        </script>-->
     </body>
 </html>

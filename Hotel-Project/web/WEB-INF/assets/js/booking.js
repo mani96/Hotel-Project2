@@ -24,6 +24,8 @@ function Book(roomId){
      else if(data="MISSING_REQUIRED_INFO"){
          $("#bookResult"+roomId+"").html("<button  data-toggle='modal' data-target='#requiredInfo' style='color: red;'> *Missing Required Info </button>");
          $("#roomNo").val(roomId);
+         $("#specialService").empty();
+         $("#result2").empty();
          $("#checkInDate2").val(checkin);
          $("#checkOutDate2").val(checkout);
          $("#bookResult"+roomId+"").hide();

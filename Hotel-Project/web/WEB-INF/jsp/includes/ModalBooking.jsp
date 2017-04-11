@@ -8,8 +8,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                <h4 class="modal-title custom_align" id="Heading">${resname}</h4> 
+             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title custom_align" id="Heading">Booking Confirmation</h4> 
             </div>
             <div class="main-login main-center" style="width: 60%; margin: auto">
                 <form id="finalBooking" name = "finalBooking" class="form-horizontal"  method="post">
@@ -47,7 +47,7 @@
                         <button class="btn btn-primary btn-block" type="submit" onclick="test3()">Book</button>
                     </div>
                 </form>
-
+                <diiv id="result2"></diiv>
             </div>
             
         </div>
@@ -74,8 +74,11 @@
      data: "room_id=" + roomId +  "&start_date=" + checkInDate2+"&end_date="+ checkOutDate2 + "&special_note=" + specialNote,
      
      success: function(data){
-         alert(specialNote);
-        alert(data);    
+        if(data == "BOOKED_ROOM"){
+            data = "Room Booked Successfully";
+            $("#result2").html('<h3 style="color: ">' + data + '</h3>')
+           }
+        $("#result2").html('<h3 style="color: red;">*' + data + '</h3>')
          
      },
      error: function(e){

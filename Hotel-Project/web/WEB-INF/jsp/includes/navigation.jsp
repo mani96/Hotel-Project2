@@ -18,10 +18,9 @@
                 <li role="presentation"><a href="#">Gallery</a></li>
                 <li role="presentation"><a href="#">About</a></li>
                 <li role="presentation"><a href="#">Contact</a></li>
-                <li role="presentation"><a href="#">Registration</a></li>
                 
-
                 <c:if test="${sessionScope.user == null}">
+                    <li role="presentation"><a href="#">Registration</a></li>
                     <li role="presentation"><a href="#" data-toggle="modal"   data-target="#login">Login</a></li>
                 </c:if>
                 

@@ -68,9 +68,12 @@
          <script src="${pageContext.request.contextPath}/assets/js/script.min.js"></script>--%>
         <script src="${pageContext.request.contextPath}/assets/js/rooms.js"></script>
         <script>
+            
+            //------------------------EDIT ROOM-------------------------------------------------------//
              $(document).ready(function(){
         $("#roomResult").hide();
         $("#roomResult_u").hide();
+         $("#roomResult_d").hide();
         allrooms();
     });
     function allrooms(){
@@ -78,8 +81,7 @@
             type: "GET",
             contentType: "application/json",
             url: "getAllRooms",
-             dataType: 'json',
-             
+            dataType: 'json',
              
             success: function(data){
                  alert(data);
@@ -104,7 +106,7 @@
             r.fridge = (r.fridge == true ? "Yes" : "No");
             print += "<tr id = "+r.roomNumber+"> <td> " + r.roomNumber + "</td><td>" + r.packageID + "</td><td>" + r.price + "</td><td>"
                     + r.tv + "</td><td>" + r.wiFi + "</td><td>" + r.fridge + "</td><td>" + r.guests + " <a onClick='editRooms("+r.roomNumber+")' href='#"+(-1)+"' style='margin-left: 65px;'>Edit</a>\n\
-    <div style='display: none' class='bookingResult' id='bookResult"+r.roomNumber+"'> </div></td><td></tr>";
+    <a onClick = 'deleteRoom("+r.roomNumber+")' href='#"+(-1)+"' style='margin-left: 65px;'>Delete</a></td><td></tr>";
         });
         print += "</tbody> </table>";
         $('#allrooms').html(print);
@@ -115,7 +117,75 @@
     $("#Room_Number_u").val(roomNo);
      $("#editRoomModal").modal('show');
      
+     
+    //------------DELETE ROOM ----------------------------------------------------------------------// 
+    }
+    function deleteRoom(roomNumber){
+        $("#Room_Number_d").val(roomNumber);
+        $("#deleteRoomModal").modal('show');
+    }
+    
+    $("#deleteRoom").submit(function(event){
+        alert("ddd");
+       event.preventDefault();
+       $("#roomResult_d").empty();
+       $("#roomResult_d").hide();
+       deleteRoomConformation();
+    });
+    
+    function deleteRoomConformation(){
+        var roomNumber = $("#Room_Number_d").val();
+        $("#roomResult_d").show();  
+     $("#roomResult_d").html("<img src = 'assets/img/ajax-loader.gif'/>");
+      //  alert(roomNumber);
+        $.ajax({
+            
+            type: "GET",
+            url: "deleteRoom",
+            data: 'roomNumber=' + roomNumber,
+             success: function(data){
+                 $("#roomResult_d").html("<h3 style=color:#265a88> " + data + "</h3>")
+                allrooms(); 
+                 $("#roomResult_d").hide();
+             },
+             error: function(data){
+              alert(data);
+               $("#roomResult_d").hide();
+             }
+        });
     }
         </script>
+        
+        <!--------------------------delete room confirmation modal---------------------------------->
+        <div class="modal fade" id="deleteRoomModal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title custom_align" id="Heading">Delete Room Confirmation</h4> 
+            </div>
+            <div class="main-login main-center" id="loginbox"style="width: 60%; margin: auto; margin-top: 30px;">
+       <!-------------------------Edit rooms------------------------------------------------------>
+       <form action="" id="deleteRoom" >
+           <div class="row">
+               <div class="col-md-8">Are you Sure you want to delete this room: </div>
+               <div class="col-md-4"><input type="number" id="Room_Number_d"  name="Room_Number" required="required" class="form-control col-md-7 col-xs-12" readonly></div>
+           </div>
+            <div id="roomResult_d" style="margin-bottom: 10px"><img src="assets/img/ajax-loader.gif"/></div>
+    <div class="row pad">
+        <div class="form-group" style="margin-top: 10px;">
+            <button type="submit" class="btn btn-primary">DELETE</button>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">Cancel</button>
+        </div></div> 
+        </form>
+
+       
+       <!--------------------------------------------------------------------------------->
+
+            </div>
+          
+        </div>
+    </div>
+</div>
     </body>
 </html>

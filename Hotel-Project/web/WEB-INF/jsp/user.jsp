@@ -62,7 +62,7 @@
                         <td><%=bk.get(i).getEnd_date()%></td>
                         <td><%=bk.get(i).getSpecial_notes()%></td>
                         <td><a href="#-1" data-toggle="modal" data-target="#editUserBooking" onclick="test4(<%=bk.get(i).getBooking_id()%>,<%=bk.get(i).getRoom_number()%>, '<%=bk.get(i).getUsername()%>', '<%=bk.get(i).getStart_date()%>', '<%=bk.get(i).getEnd_date()%>', '<%=bk.get(i).getSpecial_notes()%>' )  ">Edit</a></td>
-                        <td><a href="#-1">Delete</a></td>
+                        
                     </tr>
 
 

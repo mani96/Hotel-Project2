@@ -6,10 +6,11 @@
 package com.hotelProject.controllers;
 
 import dao.BookingManager;
-import dao.RoomManager;
 import datasource.Datasource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import wrappers.Booking;
-import wrappers.Room;
 import wrappers.Search;
 
 /**
@@ -27,21 +27,20 @@ import wrappers.Search;
 @Controller
 public class User {
 
-    @RequestMapping("redirectUser")
-    public ModelAndView redirect() {
-        return new ModelAndView("user");
-    }
-
-    @RequestMapping(value = {"bookings"}, method = {RequestMethod.GET}, produces = "application/json")
-    public @ResponseBody
-    List<Booking> getAllBookings(@RequestParam("") Map<String, String> values) {
+    @RequestMapping(value={"redirectUser","user"})
+    public ModelAndView redirect(HttpSession session) {
+        ModelAndView mv = new ModelAndView("user");
+         List<Booking> booking = new ArrayList<>();
         try {
             BookingManager bm = new BookingManager(Datasource.getDatasource());
-            return bm.get(Search.USERNAME, values.get("username"));
-
+            wrappers.User u = (wrappers.User)session.getAttribute("user");
+            booking = bm.get(Search.USERNAME, u.getUsername());
+            mv.addObject("status","SUCCESS");
         } catch (ClassNotFoundException e) {
-            return null;
+            mv.addObject("status","FAILED");
         }
+        mv.addObject("bookings",booking);
+        return mv;
     }
 
     @RequestMapping(value = {"edit", "book"}, method = {RequestMethod.GET}, produces = "application/json")

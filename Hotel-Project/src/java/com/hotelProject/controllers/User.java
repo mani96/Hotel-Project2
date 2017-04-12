@@ -43,7 +43,7 @@ public class User {
         return mv;
     }
 
-    @RequestMapping(value = {"edit", "book"}, method = {RequestMethod.GET}, produces = "application/json")
+    @RequestMapping(value = {"editBooking"}, method = {RequestMethod.GET}, produces = "application/json")
     public @ResponseBody
     String editBooking(@RequestParam("") Map<String, String> values) {
         try {
@@ -51,7 +51,7 @@ public class User {
             Booking booking = new Booking();
 
             booking.setBooking_id(Integer.parseInt(values.get("booking_id")));
-            booking.setUsername(values.get("username"));
+            booking.setUsername(values.get("username_b"));
             booking.setRoom_number(Integer.parseInt(values.get("room_number")));
             booking.setStart_date(values.get("start_date"));
             booking.setEnd_date(values.get("end_date"));

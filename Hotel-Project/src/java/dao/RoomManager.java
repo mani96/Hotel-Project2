@@ -113,7 +113,7 @@ public class RoomManager {
      * @return Room Object
      */
     public Room get(Object id) {
-        String query = this.GET + id;
+        String query = this.GET + id.toString();
         return TEMP.query(query, (ResultSet rs) -> {
             if (rs.next()) {
                 Room r = new Room();
@@ -121,7 +121,6 @@ public class RoomManager {
                 r.setFridge(rs.getBoolean("FRIDGE"));
                 r.setTV(rs.getBoolean("TV"));
                 r.setWiFi(rs.getBoolean("WIFI"));
-                r.setPackageID(rs.getInt("PACKAGE_ID"));
                 r.setPackageID(rs.getInt("PACKAGE_ID"));
                 r.setPrice(rs.getDouble("PRICE"));
                 r.setRoomNumber(rs.getInt("ROOM_NUMBER"));

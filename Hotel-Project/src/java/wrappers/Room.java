@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author Anirudh
  */
-public class Room implements Serializable{
+public class Room implements Serializable {
+
     private int roomNumber;
     private int packageID;
     private int guests;
@@ -19,16 +20,16 @@ public class Room implements Serializable{
     private boolean TV;
     private boolean WiFi;
     private double price;
-    
-   
-    
+
     /**
      * Default Constructor
      */
-    public Room() {}
-    
+    public Room() {
+    }
+
     /**
      * Constructor if you know the roomNumber you want to give to the new room.
+     *
      * @param roomNumber, Room Number
      * @param packageID, Package ID
      * @param guests, Number of guest or beds
@@ -48,7 +49,9 @@ public class Room implements Serializable{
     }
 
     /**
-     * Constructor if you don't want to give any room number but want to automatically generate one.
+     * Constructor if you don't want to give any room number but want to
+     * automatically generate one.
+     *
      * @param packageID
      * @param guests
      * @param Fridge
@@ -68,6 +71,7 @@ public class Room implements Serializable{
 
     /**
      * This method gets the room number
+     *
      * @return roomNumber
      */
     public int getRoomNumber() {
@@ -76,6 +80,7 @@ public class Room implements Serializable{
 
     /**
      * This method sets the room number
+     *
      * @param roomNumber
      */
     public void setRoomNumber(int roomNumber) {
@@ -84,6 +89,7 @@ public class Room implements Serializable{
 
     /**
      * This method gets the package id
+     *
      * @return packageID
      */
     public int getPackageID() {
@@ -92,6 +98,7 @@ public class Room implements Serializable{
 
     /**
      * This method sets the package id
+     *
      * @param packageID, Package ID
      */
     public void setPackageID(int packageID) {
@@ -100,6 +107,7 @@ public class Room implements Serializable{
 
     /**
      * This method gets the number of beds
+     *
      * @return guests
      */
     public int getGuests() {
@@ -108,6 +116,7 @@ public class Room implements Serializable{
 
     /**
      * This method sets the guests
+     *
      * @param guests
      */
     public void setGuests(int guests) {
@@ -116,6 +125,7 @@ public class Room implements Serializable{
 
     /**
      * This method gets the availablity of fridge
+     *
      * @return boolean
      */
     public boolean isFridge() {
@@ -124,6 +134,7 @@ public class Room implements Serializable{
 
     /**
      * This method sets the availablity of fridge
+     *
      * @param Fridge, Boolean
      */
     public void setFridge(boolean Fridge) {
@@ -132,6 +143,7 @@ public class Room implements Serializable{
 
     /**
      * This method gets the availablity of TV
+     *
      * @return boolean
      */
     public boolean isTV() {
@@ -140,6 +152,7 @@ public class Room implements Serializable{
 
     /**
      * This method sets the availablity of TV
+     *
      * @param TV, Boolean
      */
     public void setTV(boolean TV) {
@@ -148,6 +161,7 @@ public class Room implements Serializable{
 
     /**
      * This method gets the availablity of WiFi
+     *
      * @return Boolean
      */
     public boolean isWiFi() {
@@ -156,6 +170,7 @@ public class Room implements Serializable{
 
     /**
      * This method sets the availablity of WiFi
+     *
      * @param WiFi, Boolean
      */
     public void setWiFi(boolean WiFi) {
@@ -164,6 +179,7 @@ public class Room implements Serializable{
 
     /**
      * This method gets the price
+     *
      * @return price
      */
     public double getPrice() {
@@ -172,6 +188,7 @@ public class Room implements Serializable{
 
     /**
      * This method sets the price
+     *
      * @param price
      */
     public void setPrice(double price) {
@@ -180,9 +197,13 @@ public class Room implements Serializable{
 
     @Override
     public String toString() {
-        return "Room{" + "roomNumber=" + roomNumber + ", packageID=" + packageID + ", guests=" + guests + ", Fridge=" + Fridge + ", TV=" + TV + ", WiFi=" + WiFi + ", price=" + price +  '}';
+        return "Room{" + "roomNumber=" + roomNumber + ", packageID=" + packageID + ", guests=" + guests + ", Fridge=" + Fridge + ", TV=" + TV + ", WiFi=" + WiFi + ", price=" + price + '}';
     }
 
-    
-    
+    @Override
+    public boolean equals(Object obj) {
+        return this.roomNumber == ((Room) obj).roomNumber;
+
+    }
+
 }

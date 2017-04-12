@@ -5,6 +5,7 @@
  */
 package dao;
 
+import datasource.Datasource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -148,7 +149,7 @@ public class BookingManager {
      * always return false
      * @return action success boolean
      */
-    public boolean doBooking(Object obj) {
+    public boolean doBooking(Object obj) throws ClassNotFoundException {
         if (obj instanceof Booking) // object is correct one i.e. it is a room since this class only deals with rooms!
         {
             Booking b = (Booking) obj;
@@ -166,8 +167,18 @@ public class BookingManager {
                     return false;
                 }
             } else {
-                // item is old but requires update
-                // placing the new object instead of old one
+
+                //this is code for checking availability
+                RoomManager rm = new RoomManager(Datasource.getDatasource());
+                Room room = rm.get(b.getRoom_number());
+
+                List<Room> rooms = this.getAvailableRoom(b.getStart_date(), b.getEnd_date(), room.getGuests());
+
+                if (!rooms.contains(room)) {
+                    return false;
+                }
+                //end of checking availible rooms 
+                
                 try {
                     return TEMP.update(this.UPDATE,
                             b.getUsername(), b.getRoom_number(), b.getStart_date(), b.getEnd_date(), b.getSpecial_notes(), b.getBooking_id()) == 1;
@@ -199,10 +210,11 @@ public class BookingManager {
 
     /**
      * This method gets all the available room for specific number of guests
+     *
      * @param startDate
      * @param guests
      * @param endDate
-     * @return 
+     * @return
      */
     public List<Room> getAvailableRoom(String startDate, String endDate, int guests) {
         String query = "SELECT * FROM ROOMS WHERE GUESTS = " + guests + " AND ROOM_NUMBER NOT IN (SELECT ROOM_NUMBER FROM BOOKINGS WHERE BOOKINGS.START_DATE = \"" + startDate + "\")";
@@ -222,22 +234,22 @@ public class BookingManager {
                 return r;
             }
         });
-        
+
         for (int i = 0; i < list.size(); i++) {
             List<Booking> bks = this.get(Search.ROOM_NUMBER, list.get(i).getRoomNumber());
             for (Booking bk : bks) {
-                if(DateUtil.isBetween(startDate, bk.getStart_date(), bk.getEnd_date()) ||  // if my start date is between booking start date and booking enddate
-                        DateUtil.isBetween(endDate, bk.getStart_date(), bk.getEnd_date()) || // if my end date is between booking start date and booking enddate
-                        DateUtil.isBetween(bk.getStart_date(), startDate, endDate) || 
-                        DateUtil.isBetween(bk.getEnd_date(),  startDate, endDate)
-                ) 
-                {
+                if (DateUtil.isBetween(startDate, bk.getStart_date(), bk.getEnd_date())
+                        || // if my start date is between booking start date and booking enddate
+                        DateUtil.isBetween(endDate, bk.getStart_date(), bk.getEnd_date())
+                        || // if my end date is between booking start date and booking enddate
+                        DateUtil.isBetween(bk.getStart_date(), startDate, endDate)
+                        || DateUtil.isBetween(bk.getEnd_date(), startDate, endDate)) {
                     list.remove(i);
                 }
             }
-        }  
+        }
         return list;
-        
+
     }
 
 }

@@ -28,7 +28,18 @@
         <%@include file="includes/Login.jsp" %>
         
       
-        
+        <table class='table table-striped container' style='margin-top: 50px'>
+            <thead>
+                <tr>
+       <th>Booking ID</th>
+       <th>Room Number</th>
+       <th>Username</th> 
+       <th>Start Date</th>
+       <th>End Date</th>
+       <th>Special Note</th>
+                </tr>
+            </thead> 
+            <tbody>
         <%
             List<Booking> bk = new ArrayList<>();
                         try {
@@ -44,21 +55,25 @@
                       }
                       else
                       {
-                      String print = "<table class='table table-striped' style='margin-top: 50px'><thead><tr>"
-                      + "<th>Booking ID</th> <th>Room Number</th><th>Username</th> <th>Start Date</th><th>End Date</th><th>Special Note</th></tr></thead> <tbody>";
-                          for (int i = 0; i < bk.size(); i++) {
-             
+                     
+                          for (int i = 0; i < bk.size(); i++) { %>
+    <tr>
+        <td><%=bk.get(i).getBooking_id()%> </td>
+        <td><%=bk.get(i).getRoom_number()%></td>
+        <td><%=bk.get(i).getUsername()%></td>
+        <td><%=bk.get(i).getStart_date()%></td>
+        <td><%=bk.get(i).getEnd_date()%></td>
+        <td><%=bk.get(i).getSpecial_notes()%></td>
+        <td><a href="#-1" onclick="test4(<%=bk.get(i).getBooking_id()%>,<%=bk.get(i).getRoom_number()%>)">Edit</a></td>
+        <td><a href="#-1">Delete</a></td>
+    </tr>
+                 
             
-              print += "<tr><td>"+bk.get(i).getBooking_id()+"</td><td>"+bk.get(i).getRoom_number()+"</td><td>"+bk.get(i).getUsername()
-               +"</td><td>"+bk.get(i).getStart_date()+"</td><td>"+bk.get(i).getEnd_date()+"</td><td>"+bk.get(i).getSpecial_notes()+"</td>"
-                      + "<td><a href=''>Edit</a><td><a href=''>Delete</a></td></tr>";
-                              }
-                          print += "</tbody> </table>";
+            <%                           
                           
-                          out.println(print);
-                      }
+              }}
         %>
-        
+        </tbody> </table>
 
             <!-------------------footer------------------------>
             <div class="footer-clean">
@@ -72,7 +87,11 @@
 
         <script src="${pageContext.request.contextPath}/assets/js/rooms.js"></script>
 <script src = "${pageContext.request.contextPath}/assets/js/Filterable-Gallery.js"></script>
-
+<script>
+    function test4(bookId, roomNumber){
+        alert(bookId,roomNumber );
+    }
+</script>
     </body>
 
 </html>

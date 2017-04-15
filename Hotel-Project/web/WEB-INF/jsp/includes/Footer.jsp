@@ -3,7 +3,7 @@
     Created on : 13-Mar-2017, 3:49:07 PM
     Author     : manvir
 --%>
-<div class="row text-center well" style="margin-top: 50px;">
+<div id="contact" class="row text-center well" style="margin-top: 50px;">
                 <div class="col-md-6">
                     <fieldset>
                         <legend> <i class="fa fa-location-arrow"></i> Locate Us</legend>

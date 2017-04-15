@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar navbar-default navbar-fixed-top opaque-navbar">
-    <div class="container">
+    <div class="container ">
         <div class="navbar-header">
             <a class="navbar-brand navbar-link" href="#"> </a>
             <button class="navbar-toggle collapsed toggle-animated" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
@@ -15,12 +15,11 @@
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav">
                 <li role="presentation"><a href="index">Home. </a></li>
-                <li role="presentation"><a href="#">Gallery</a></li>
-                <li role="presentation"><a href="#">About</a></li>
-                <li role="presentation"><a href="#">Contact</a></li>
+               
+                <li role="presentation"><a href="#contact">Contact</a></li>
                 
                 <c:if test="${sessionScope.user == null}">
-                    <li role="presentation"><a href="#">Registration</a></li>
+                    
                     <li role="presentation"><a href="#" data-toggle="modal"   data-target="#login">Login</a></li>
                 </c:if>
                 
@@ -29,12 +28,16 @@
                         <c:if test="${sessionScope.user.isAdmin()}">
                             <li role="presentation"><a href="redirectAdmin">Access Admin Panel - ${sessionScope.user.getFirstName()}</a></li>
                         </c:if>
+                            <c:if test="${sessionScope.user.isAdmin() == false}">
+                            <li role="presentation"><a href="redirectUser">Access User Panel - ${sessionScope.user.getFirstName()}</a></li>
+                        </c:if>
+                              
                     </c:if>
             </ul>
         </div>
     </div>
 </nav>
-
+<div id="home">
 <div id="slider">	
     <div class="carousel slide" data-ride="carousel" id="carousel-1">
         <div class="carousel-inner" role="listbox">
@@ -54,3 +57,4 @@
         </ol>
     </div>
 </div>
+    </div>

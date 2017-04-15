@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import wrappers.Booking;
 import wrappers.Search;
@@ -43,9 +42,10 @@ public class User {
         return mv;
     }
 
-    @RequestMapping(value = {"editBooking"}, method = {RequestMethod.GET}, produces = "application/json")
-    public @ResponseBody
-    String editBooking(@RequestParam("") Map<String, String> values) {
+    @RequestMapping(value = {"editUserBooking"}, method = {RequestMethod.POST})
+    public 
+    ModelAndView editBooking(@RequestParam("") Map<String, String> values) {
+         ModelAndView mv = new ModelAndView("user");
         try {
             BookingManager bm = new BookingManager(Datasource.getDatasource());
             Booking booking = new Booking();
@@ -58,14 +58,15 @@ public class User {
             booking.setSpecial_notes(values.get("special_notes"));
 
             if (bm.doBooking(booking)) {
-                return "SUCCESS: Booking is updated successfully";
+                mv.addObject("editResult", "SUCCESS: Booking is updated successfully");
             } else {
-                return "FAILED: Booking is not updated. Please try again";
+                 mv.addObject("editResult", "FAILED: Booking is not updated. Please try again");
             }
 
         } catch (ClassNotFoundException e) {
-            return "FAILED: Booking is not updated. Please try again";
+             mv.addObject("editResult", "FAILED: Booking is not updated. Please try again");
         }
+return mv;
     }
 
 }

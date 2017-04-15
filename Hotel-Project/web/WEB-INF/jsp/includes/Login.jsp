@@ -52,33 +52,33 @@ onClick="$('#loginbox').hide(); $('#signupbox').show()"
 
             </div>
             <!-----------SignUp form-------------------->
-            <div id="sign" style="display: none"><a href="#" onclick="$('#sign').hide(); $('#loginbox').show()">aaa</a>
+            <div id="sign" style="display: none">
                 <div class="text-center" style="width: 60%; margin: auto" >
                     <div class="form-container">
                         <div class="image-holder"></div>
-                        <form method="post">
+                        <form id = "signUp" action="addUser" method="get">
                             <h2 class="text-center"><strong>Create</strong> an account.</h2>
                             <div class="form-group">
-                                <input class="form-control" type="text" name="username" placeholder="username">
+                                <input class="form-control" type="text" name="username" id="username" placeholder="username">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="text" name="firstname" placeholder="First Name">
+                                <input class="form-control" type="text" name="firstname" id="firstname" placeholder="First Name">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="text" name="lastname" placeholder="Last Name">
+                                <input class="form-control" type="text" name="lastname" id="lastname" placeholder="Last Name">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="password" name="password" placeholder="Password">
+                                <input class="form-control" type="password" name="password" id="password" placeholder="Password">
                             </div>
                             <div class="form-group">
-                                <select class="select_room form-control" data-style="btn-primary" name="guest">
-                    <option value="User">User</option>
+                                <select class="select_room form-control" data-style="btn-primary" name="guest" id="guest">
+                    <option value="Client">Client</option>
                 </select>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="text" name="phoneNumber" placeholder="Phone Number">
+                                <input class="form-control" type="text" name="phone" id="phone" placeholder="Phone Number">
                             </div>
-                           
+                     <div id="addUserResult" style="margin-bottom: 10px"><img src="assets/img/ajax-loader.gif"/></div>
                             <div class="form-group">
                                 <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
                             </div><a href="#" class="already" onclick="$('#sign').hide(); $('#loginbox').show()">You already have an account? Login here.</a></form>
@@ -89,3 +89,37 @@ onClick="$('#loginbox').hide(); $('#signupbox').show()"
         </div>
     </div>
 </div>
+<script>
+    $("#signUp").submit(function(event){
+        event.preventDefault();
+        addUserProcessing();
+        $("#addUserResult").empty();
+    });
+    
+    function addUserProcessing(){
+        $("#addUserResult").show();
+         $("#addUserResult").html("<img src = 'assets/img/ajax-loader.gif'/>");
+        var username = $("#username").val();
+        var firstname = $("#firstname").val();
+        var lastname = $("#lastname").val();
+        var password = $("#password").val();
+        var guest = $("#guest").val();
+        var phone = $("#phone").val();
+        
+        $.ajax({
+             type: "GET",
+             contentType: "application/text",
+             url: "addUser",
+             data: "username="+username+"&firstname="+firstname+"&lastname="+lastname+"&password="+password
+             +"&guest="+ guest+"&phone="+phone,
+        success: function(data){
+             $("#addUserResult").html("<h3 style=color:#265a88> " + data + "</h3>");
+           
+        },
+        error: function(data){
+             $("#addUserResult").html("<h3 style=color:red> " + data + "</h3>");
+            
+        }
+        });
+    }
+  </script>

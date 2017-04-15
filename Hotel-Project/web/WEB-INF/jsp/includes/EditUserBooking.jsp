@@ -12,7 +12,7 @@
                 <h4 class="modal-title custom_align" id="Heading">Booking</h4> 
             </div>
             <div class="main-login main-center" id="editBookingBox" style="width: 60%; margin: auto">
-                <form name = "editBooking" class="form-horizontal"  method="get" action="${pageContext.request.contextPath}/editBooking">
+                <form name = "editBooking" class="form-horizontal"  method="post" action="${pageContext.request.contextPath}/editUserBooking">
                     <div class="form-group">
                         <label for="booking_id" class="cols-sm-2 control-label">Booking Id</label>
                         <div class="cols-sm-10">

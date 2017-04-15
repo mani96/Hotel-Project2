@@ -41,5 +41,11 @@
 <script src = "${pageContext.request.contextPath}/assets/js/Filterable-Gallery.js"></script>
 
     </body>
-
+    <script>
+          $(document).ready(function(){
+     
+         $("#addUserResult").hide();
+        allrooms();
+    });
+    </script>
 </html>

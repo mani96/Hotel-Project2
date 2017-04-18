@@ -38,7 +38,7 @@
                         <div class="cols-sm-10">
                             <div class="input-group">
                               
-                                <input type="text" class="form-control" name="username_b" id="username_b" />
+                                <input type="text" class="form-control" name="username_b" id="username_b" readonly/>
                             </div>
                         </div>
                     </div>

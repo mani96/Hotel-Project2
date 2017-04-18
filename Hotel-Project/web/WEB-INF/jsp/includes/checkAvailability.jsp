@@ -58,7 +58,7 @@
                 </c:if>
                     <c:if test="${sessionScope.user.isAdmin() == true}">
                     <div class="row">
-                        <h2 style="color: red">*Admin cannot book romm</h2>
+                        <h2 style="color: red">*Admin cannot book the romm</h2>
                     </div>
                 </c:if>
                    

@@ -41,7 +41,7 @@
                 </thead> 
                 <tbody>
                     <%
-                        List<Booking> bk = new ArrayList<>();
+                        List<Booking> bk = new ArrayList();
                         try {
                             BookingManager bm = new BookingManager(Datasource.getDatasource());
                             bk = bm.get(Search.USERNAME, ((wrappers.User) session.getAttribute("user")).getUsername());

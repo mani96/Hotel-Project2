@@ -32,7 +32,7 @@ import wrappers.User;
  * @author manvir
  */
 @Controller
-public class index {
+public class Index {
 
     /**
      *

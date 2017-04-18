@@ -111,7 +111,7 @@
             error: function (e) {
                 
                 $("#loader").hide();
-                 $('#result').html("<h2 style='color: red'>Error</h2>");
+                 $('#result').html("<h2 style='color: red'>Dates are invalid</h2>");
             }
         });
 

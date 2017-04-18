@@ -46,7 +46,9 @@ public class DateUtil {
         try {
             Date start = new SimpleDateFormat("yyyy-MM-dd").parse(firstDate);
             Date end = new SimpleDateFormat("yyyy-MM-dd").parse(secondDate);
-            return !(new Date().after(start) || end.before(new Date()) || end.before(start) || start.equals(end));
+            return start.compareTo(end) >= 0;
+            
+         
         } catch (ParseException e) {
             return false;
         }
@@ -54,13 +56,7 @@ public class DateUtil {
     
     public static boolean isBefore(String firstDate, String secondDate)
     {
-        try {
-            Date start = new SimpleDateFormat("yyyy-MM-dd").parse(firstDate);
-            Date end = new SimpleDateFormat("yyyy-MM-dd").parse(secondDate);
-            return (new Date().after(start) || end.before(new Date()) || end.before(start) || start.equals(end));
-        } catch (ParseException e) {
-            return false;
-        }
+        return DateUtil.isAfter(secondDate,firstDate );
     }
     
     public static boolean isBetween(String checkDate, String startDate, String endDate)

@@ -3,6 +3,8 @@ package com.hotelProject.controllers;
 import dao.BookingManager;
 import dao.UserManager;
 import datasource.Datasource;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -84,8 +86,6 @@ public class index {
                         mv.addObject("status", "SUCCESS");
                         mv.addObject("reason", "User found(Customer) see user session variable.");
 
-                        
-
                     }
                     // user to be passed in sessions
                     request.getSession().setAttribute("user", user);
@@ -128,6 +128,23 @@ public class index {
             int guests = Integer.parseInt(map.get("guests"));
 
             try {
+                Calendar currenttime = Calendar.getInstance();
+                Date sqldate = new Date((currenttime.getTime()).getTime());
+
+                if (!DateUtil.isBefore(checkin, checkout)) {
+                    return null;
+                }
+                if (!checkin.equalsIgnoreCase(sqldate.toString())) {
+                    if (DateUtil.isBefore(checkin, sqldate.toString())) {
+                        return null;
+                    }
+                }
+                if (!checkout.equalsIgnoreCase(sqldate.toString())) {
+                    if (DateUtil.isBefore(checkout, sqldate.toString())) {
+                        return null;
+                    }
+                }
+
                 BookingManager rm = new BookingManager(Datasource.getDatasource());
                 List<Room> list = rm.getAvailableRoom(checkin, checkout, guests);
                 if (list == null || list.isEmpty()) {

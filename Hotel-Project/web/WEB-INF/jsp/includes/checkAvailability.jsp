@@ -63,7 +63,7 @@
                 </c:if>
                     <c:if test="${sessionScope.user.isAdmin() == true}">
                     <div class="row">
-                        <h2 style="color: red">*Admin cannot book the romm</h2>
+                        <h2 style="color: red">*Admin cannot book the room</h2>
                     </div>
                 </c:if>
                    
@@ -77,12 +77,9 @@
             </div>
 
         </div>
-        <div id="result">
+        <div id="result" class="text-center">
 
         </div>
-    </div>
-
-</div>
 <script>
     $(document).ready(function () {
         $("#loader").hide();
@@ -112,8 +109,9 @@
                 print2(data);
             },
             error: function (e) {
-                alert("error" + e);
+                
                 $("#loader").hide();
+                 $('#result').html("<h2 style='color: red'>Error</h2>");
             }
         });
 

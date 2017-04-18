@@ -9,6 +9,7 @@ import datasource.Datasource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -172,13 +173,19 @@ public class BookingManager {
                 RoomManager rm = new RoomManager(Datasource.getDatasource());
                 Room room = rm.get(b.getRoom_number());
 
-                List<Room> rooms = this.getAvailableRoom(b.getStart_date(), b.getEnd_date(), room.getGuests());
+                List<Booking> bookings = this.get(Search.ROOM_NUMBER, b.getRoom_number());
 
-                if (!rooms.contains(room)) {
-                    return false;
+                for (Booking bk : bookings) {
+                    if (bk.getStart_date() == b.getStart_date() && bk.getEnd_date() == b.getEnd_date()) {
+                        break;
+                    }
+                    if (DateUtil.isBetween(b.getStart_date(), bk.getStart_date(), bk.getEnd_date())
+                            || DateUtil.isBetween(b.getEnd_date(), bk.getStart_date(), bk.getEnd_date())) {
+                        return false;
+                    }
                 }
+
                 //end of checking availible rooms 
-                
                 try {
                     return TEMP.update(this.UPDATE,
                             b.getUsername(), b.getRoom_number(), b.getStart_date(), b.getEnd_date(), b.getSpecial_notes(), b.getBooking_id()) == 1;
@@ -219,8 +226,6 @@ public class BookingManager {
     public List<Room> getAvailableRoom(String startDate, String endDate, int guests) {
         String query = "SELECT * FROM ROOMS WHERE GUESTS = " + guests + " AND ROOM_NUMBER NOT IN (SELECT ROOM_NUMBER FROM BOOKINGS WHERE BOOKINGS.START_DATE = \"" + startDate + "\")";
 
-        
-        
         List<Room> list = TEMP.query(query, new RowMapper<Room>() {
             @Override
             public Room mapRow(ResultSet rs, int rowNum) throws SQLException {

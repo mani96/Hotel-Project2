@@ -113,9 +113,9 @@ public class RoomManager {
      * @return Room Object
      */
     public Room get(Object id) {
-        String query = this.GET + id.toString();
+        String query = this.GET + Integer.parseInt(id.toString());
         return TEMP.query(query, (ResultSet rs) -> {
-            if (rs.next()) {
+            if (rs.first()) {
                 Room r = new Room();
                 r.setGuests(rs.getInt("GUESTS"));
                 r.setFridge(rs.getBoolean("FRIDGE"));

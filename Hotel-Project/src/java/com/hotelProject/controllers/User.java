@@ -44,7 +44,7 @@ public class User {
 
     @RequestMapping(value = {"editUserBooking"}, method = {RequestMethod.POST})
     public 
-    ModelAndView editBooking(@RequestParam("") Map<String, String> values) {
+    ModelAndView editBooking(@RequestParam("") Map<String, String> values, HttpSession session) {
          ModelAndView mv = new ModelAndView("user");
         try {
             BookingManager bm = new BookingManager(Datasource.getDatasource());
@@ -56,7 +56,7 @@ public class User {
             booking.setStart_date(values.get("start_date"));
             booking.setEnd_date(values.get("end_date"));
             booking.setSpecial_notes(values.get("special_notes"));
-
+         
             if (bm.doBooking(booking)) {
                 mv.addObject("editResult", "SUCCESS: Booking is updated successfully");
             } else {

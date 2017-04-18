@@ -56,6 +56,11 @@
                         <button type="submit" class="btn btn-primary">Check Availability</button><br><br>
                     </div>
                 </c:if>
+                     <c:if test="${sessionScope.user.isAdmin() == null}">
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary">Check Availability</button><br><br>
+                    </div>
+                </c:if>
                     <c:if test="${sessionScope.user.isAdmin() == true}">
                     <div class="row">
                         <h2 style="color: red">*Admin cannot book the romm</h2>

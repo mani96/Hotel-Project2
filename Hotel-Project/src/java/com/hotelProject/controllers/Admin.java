@@ -42,6 +42,7 @@ public class Admin {
         Room room = new Room();
         room.setRoomNumber(Integer.parseInt(values.get("RoomNumber")));
         room.setFridge(Boolean.valueOf(values.get("Fridge")));
+        room.setPackageID(Integer.valueOf(values.get("packageId")));
         room.setTV(Boolean.valueOf(values.get("TV")));
         room.setWiFi(Boolean.valueOf(values.get("WiFi")));
         room.setPrice(Double.valueOf(values.get("price")));

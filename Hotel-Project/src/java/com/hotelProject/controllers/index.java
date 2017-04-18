@@ -92,7 +92,7 @@ public class index {
                 } else {
                     if (usm.get(auth.username) == null) {
                         // user doesn't exists redirect to register page!
-                        mv = new ModelAndView("register");
+                        mv = new ModelAndView("index");
                         mv.addObject("status", "FAILED");
                         mv.addObject("reason", "User doesn't exists!");
                     } else {

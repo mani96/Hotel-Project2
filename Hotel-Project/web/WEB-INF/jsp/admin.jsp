@@ -122,6 +122,7 @@
     }
     //------------DELETE ROOM ----------------------------------------------------------------------// 
     function deleteRoom(roomNumber){
+        $("#roomResult_d").empty();
         $("#Room_Number_d").val(roomNumber);
         $("#deleteRoomModal").modal('show');
     }

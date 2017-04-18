@@ -4,6 +4,7 @@
     Author     : manvir
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container-fluid well" style="padding-bottom: 100px;">
     <div class="container" >
         <div class="checkForm" >
@@ -50,9 +51,18 @@
                                 </div></div>
                         </div>
                     </div>
+                    <c:if test="${sessionScope.user.isAdmin() == false}">
                     <div class="row">
                         <button type="submit" class="btn btn-primary">Check Availability</button><br><br>
                     </div>
+                </c:if>
+                    <c:if test="${sessionScope.user.isAdmin() == true}">
+                    <div class="row">
+                        <h2 style="color: red">*Admin cannot book romm</h2>
+                    </div>
+                </c:if>
+                   
+                    
                     <div class="row">
 
                         <img src="assets/img/ajax-loader.gif" id="loader" />

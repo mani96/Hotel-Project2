@@ -35,7 +35,7 @@ onClick="$('#loginbox').hide(); $('#signupbox').show()"
                     <div class="form-group" >
                         <div class="col-sm-12 controls">
                             <input type="submit" id="btn-login" href="${pageContext.request.contextPath}/login.html" class="btn btn-success" value="Login" />
-                            <a id="btn-fblogin" href="fblogin.html" class="btn btn-primary">Login with Facebook</a>
+                           
                         </div>
                     </div>
                     <div class="form-group">
@@ -59,7 +59,7 @@ onClick="$('#loginbox').hide(); $('#signupbox').show()"
                         <form id = "signUp" action="addUser" method="get">
                             <h2 class="text-center"><strong>Create</strong> an account.</h2>
                             <div class="form-group">
-                                <input class="form-control" type="text" name="username" id="username" placeholder="username">
+                                <input class="form-control" type="text" name="username" id="username_u" placeholder="username">
                             </div>
                             <div class="form-group">
                                 <input class="form-control" type="text" name="firstname" id="firstname" placeholder="First Name">
@@ -68,7 +68,7 @@ onClick="$('#loginbox').hide(); $('#signupbox').show()"
                                 <input class="form-control" type="text" name="lastname" id="lastname" placeholder="Last Name">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="password" name="password" id="password" placeholder="Password">
+                                <input class="form-control" type="password" name="password" id="password_u" placeholder="Password">
                             </div>
                             <div class="form-group">
                                 <select class="select_room form-control" data-style="btn-primary" name="guest" id="guest">
@@ -99,10 +99,10 @@ onClick="$('#loginbox').hide(); $('#signupbox').show()"
     function addUserProcessing(){
         $("#addUserResult").show();
          $("#addUserResult").html("<img src = 'assets/img/ajax-loader.gif'/>");
-        var username = $("#username").val();
+        var username = $("#username_u").val();
         var firstname = $("#firstname").val();
         var lastname = $("#lastname").val();
-        var password = $("#password").val();
+        var password = $("#password_u").val();
         var guest = $("#guest").val();
         var phone = $("#phone").val();
         
